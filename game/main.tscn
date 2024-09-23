@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmvaycdup42n8"]
+
+[ext_resource type="PackedScene" uid="uid://bi3iqojbxicdm" path="res://game/level 1.tscn" id="1_qmeur"]
+[ext_resource type="PackedScene" uid="uid://5iclcc2smej6" path="res://entities/player/player.tscn" id="2_phk5y"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Level1" parent="." instance=ExtResource("1_qmeur")]
+
+[node name="Player" parent="Level1" instance=ExtResource("2_phk5y")]
+
+[node name="Camera2D" type="Camera2D" parent="Level1/Player"]
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+position_smoothing_enabled = true

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://col6n8gb1475b"]
+
+[ext_resource type="Script" path="res://libraries/components/soul_basic.gd" id="1_ennmc"]
+[ext_resource type="PackedScene" uid="uid://c32giw1o6jci7" path="res://modules/HitboxModule.tscn" id="2_jxp80"]
+[ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://modules/HealthModule.tscn" id="4_nhh0i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80t3b"]
+size = Vector2(5, 5)
+
+[node name="soul_basic" type="CharacterBody2D" node_paths=PackedStringArray("health_component")]
+collision_layer = 16
+collision_mask = 128
+motion_mode = 1
+script = ExtResource("1_ennmc")
+health_component = NodePath("HealthComponent")
+max_health = 15
+speed = 150
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_80t3b")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("2_jxp80")]
+collision_layer = 32
+collision_mask = 72
+health = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_80t3b")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("soul") instance=ExtResource("4_nhh0i")]
+soul = NodePath("..")
