@@ -14,9 +14,9 @@ class_name PlatformerController2D
 @export var PlayerCollider: CollisionShape2D
 
 #INFO HORIZONTAL MOVEMENT 
-@export_category("L/R Movement")
+@export_group("LR Movement")
 ##The max speed your player will move
-@export_range(50, 500) var maxSpeed: float = 200.0
+@export_range(50, 800) var maxSpeed: float = 200.0
 ##How fast your player will reach max speed from rest (in seconds)
 @export_range(0, 4) var timeToReachMaxSpeed: float = 0.2
 ##How fast your player will reach zero speed from max speed (in seconds)
@@ -27,9 +27,14 @@ class_name PlatformerController2D
 @export var runningModifier: bool = false
 
 #INFO JUMPING 
-@export_category("Jumping and Gravity")
+@export_group("Jumping and Gravity")
 ##The peak height of your player's jump
 @export_range(0, 20) var jumpHeight: float = 2.0
+#@export var jump_height: float
+##Custom: Time to reach the peak jump height
+@export_range(0, 2.0) var jump_peak_time: float = 0.4
+##Custom: Time to fall after a jump
+@export_range(0, 2.0) var jump_fall_time: float = 0.6
 ##How many jumps your character can do before needing to touch the ground again. Giving more than 1 jump disables jump buffering and coyote time.
 @export_range(0, 4) var jumps: int = 1
 ##The strength at which your character will be pulled to the ground.
@@ -45,8 +50,9 @@ class_name PlatformerController2D
 ##The window of time (in seconds) that your player can press the jump button before hitting the ground and still have their input registered as a jump. This is set to 0.2 seconds by default.
 @export_range(0, 0.5) var jumpBuffering: float = 0.2
 
+
 #INFO EXTRAS
-@export_category("Wall Jumping")
+@export_group("Wall Jumping")
 ##Allows your player to jump off of walls. Without a Wall Kick Angle, the player will be able to scale the wall.
 @export var wallJump: bool = false
 ##How long the player's movement input will be ignored after wall jumping.
@@ -59,7 +65,7 @@ class_name PlatformerController2D
 @export var wallLatching: bool = false
 ##wall latching must be enabled for this to work. #If enabled, the player must hold down the "latch" key to wall latch. Assign "latch" in the project input settings. The player's input will be ignored when latching.
 @export var wallLatchingModifer: bool = false
-@export_category("Dashing")
+@export_group("Dashing")
 ##The type of dashes the player can do.
 @export_enum("None", "Horizontal", "Vertical", "Four Way", "Eight Way") var dashType: int
 ##How many dashes your player can do before needing to hit the ground.
@@ -68,7 +74,7 @@ class_name PlatformerController2D
 @export var dashCancel: bool = true
 ##How far the player will dash. One of the dashing toggles must be on for this to be used.
 @export_range(1.5, 4) var dashLength: float = 2.5
-@export_category("Corner Cutting/Jump Correct")
+@export_group("Corner Cutting/Jump Correct")
 ##If the player's head is blocked by a jump but only by a little, the player will be nudged in the right direction and their jump will execute as intended. NEEDS RAYCASTS TO BE ATTACHED TO THE PLAYER NODE. AND ASSIGNED TO MOUNTING RAYCAST. DISTANCE OF MOUNTING DETERMINED BY PLACEMENT OF RAYCAST.
 @export var cornerCutting: bool = false
 ##How many pixels the player will be pushed (per frame) if corner cutting is needed to correct a jump.
@@ -79,7 +85,7 @@ class_name PlatformerController2D
 @export var middleRaycast: RayCast2D
 ##Raycast used for corner cutting calculations. Place above and to the right of the players head point up. ALL ARE NEEDED FOR IT TO WORK.
 @export var rightRaycast: RayCast2D
-@export_category("Down Input")
+@export_group("Down Input")
 ##Holding down will crouch the player. Crouching script may need to be changed depending on how your player's size proportions are. It is built for 32x player's sprites.
 @export var crouch: bool = false
 ##Holding down and pressing the input for "roll" will execute a roll if the player is grounded. Assign a "roll" input in project settings input.
@@ -92,7 +98,7 @@ class_name PlatformerController2D
 ##If enabled, pressing up will end the ground pound early
 @export var upToCancel: bool = false
 
-@export_category("Animations (Check Box if has animation)")
+@export_group("Animations (Check Box if has animation)")
 ##Animations must be named "run" all lowercase as the check box says
 @export var run: bool
 ##Animations must be named "jump" all lowercase as the check box says
@@ -136,6 +142,11 @@ var gravityActive: bool = true
 var dashing: bool = false
 var dashCount: int
 var rolling: bool = false
+
+
+var jump_velocity: float
+var jump_gravity: float
+var fall_gravity: float
 
 var twoWayDashHorizontal
 var twoWayDashVertical
@@ -190,7 +201,12 @@ func _updateData():
 	acceleration = maxSpeed / timeToReachMaxSpeed
 	deceleration = -maxSpeed / timeToReachZeroSpeed
 	
-	jumpMagnitude = (10.0 * jumpHeight) * gravityScale
+	
+	jump_velocity = ((2.0 * jumpHeight) / jump_peak_time) * -1.0
+	jump_gravity = ((-2.0 * jumpHeight) / (jump_peak_time * jump_peak_time)) * -1.0
+	fall_gravity = ((-2.0 * jumpHeight) / (jump_fall_time * jump_fall_time)) * -1.0
+	
+	jumpMagnitude = -jump_velocity * gravityScale * 4.0
 	jumpCount = jumps
 	
 	dashMagnitude = maxSpeed * dashLength
@@ -435,9 +451,9 @@ func _physics_process(delta):
 			
 	#INFO Jump and Gravity
 	if velocity.y > 0:
-		appliedGravity = gravityScale * descendingGravityFactor
+		appliedGravity = jump_gravity
 	else:
-		appliedGravity = gravityScale
+		appliedGravity = fall_gravity
 	
 	if is_on_wall() and !groundPounding:
 		appliedTerminalVelocity = terminalVelocity / wallSliding

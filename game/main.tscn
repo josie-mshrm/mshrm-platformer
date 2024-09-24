@@ -8,8 +8,10 @@
 [node name="Level1" parent="." instance=ExtResource("1_qmeur")]
 
 [node name="Player" parent="Level1" instance=ExtResource("2_phk5y")]
+position = Vector2(-152, -156)
 
 [node name="Camera2D" type="Camera2D" parent="Level1/Player"]
-zoom = Vector2(0.5, 0.5)
 process_callback = 0
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+metadata/_edit_lock_ = true
