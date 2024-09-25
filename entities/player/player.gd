@@ -1,2 +1,3 @@
-extends PlatformerController2D
+extends PlatformerController2DDirty
+
 class_name Player

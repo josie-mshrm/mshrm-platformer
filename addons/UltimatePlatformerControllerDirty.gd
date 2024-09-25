@@ -1,9 +1,9 @@
 extends Soul
 
-class_name PlatformerController2D
+class_name PlatformerController2DDirty
 
 @export var README: String = "IMPORTANT: MAKE SURE TO ASSIGN 'left' 'right' 'jump' 'dash' 'up' 'down' in the project settings input map. Usage tips. 1. Hover over each toggle and variable to read what it does and to make sure nothing bugs. 2. Animations are very primitive. To make full use of your custom art, you may want to slightly change the code for the animations"
-#INFO READEME 
+#INFO README 
 #IMPORTANT: MAKE SURE TO ASSIGN 'left' 'right' 'jump' 'dash' 'up' 'down' in the project settings input map. THIS IS REQUIRED
 #Usage tips. 
 #1. Hover over each toggle and variable to read what it does and to make sure nothing bugs. 
@@ -14,26 +14,31 @@ class_name PlatformerController2D
 @export var PlayerCollider: CollisionShape2D
 
 #INFO HORIZONTAL MOVEMENT 
-@export_category("L/R Movement")
+@export_group("LR Movement")
 ##The max speed your player will move
-@export_range(50, 500) var maxSpeed: float = 200.0
+@export_range(200, 1000) var maxSpeed: float = 800
 ##How fast your player will reach max speed from rest (in seconds)
-@export_range(0, 4) var timeToReachMaxSpeed: float = 0.2
+@export_range(0, 4) var timeToReachMaxSpeed: float = 0.1
 ##How fast your player will reach zero speed from max speed (in seconds)
-@export_range(0, 4) var timeToReachZeroSpeed: float = 0.2
+@export_range(0, 4) var timeToReachZeroSpeed: float = 0.3
 ##If true, player will instantly move and switch directions. Overrides the "timeToReach" variables, setting them to 0.
 @export var directionalSnap: bool = false
 ##If enabled, the default movement speed will by 1/2 of the maxSpeed and the player must hold a "run" button to accelerate to max speed. Assign "run" (case sensitive) in the project input settings.
 @export var runningModifier: bool = false
 
 #INFO JUMPING 
-@export_category("Jumping and Gravity")
+@export_group("Jumping and Gravity")
 ##The peak height of your player's jump
 @export_range(0, 20) var jumpHeight: float = 2.0
+#@export var jump_height: float
+##Custom: Time to reach the peak jump height
+@export_range(0, 2.0) var jump_peak_time: float = 0.4
+##Custom: Time to fall after a jump
+@export_range(0, 2.0) var jump_fall_time: float = 0.6
 ##How many jumps your character can do before needing to touch the ground again. Giving more than 1 jump disables jump buffering and coyote time.
 @export_range(0, 4) var jumps: int = 1
 ##The strength at which your character will be pulled to the ground.
-@export_range(0, 100) var gravityScale: float = 20.0
+@export_range(0, 100) var gravityScale: float = 80.0
 ##The fastest your player can fall
 @export_range(0, 1000) var terminalVelocity: float = 500.0
 ##Your player will move this amount faster when falling providing a less floaty jump curve.
@@ -43,10 +48,11 @@ class_name PlatformerController2D
 ##How much extra time (in seconds) your player will be given to jump after falling off an edge. This is set to 0.2 seconds by default.
 @export_range(0, 0.5) var coyoteTime: float = 0.2
 ##The window of time (in seconds) that your player can press the jump button before hitting the ground and still have their input registered as a jump. This is set to 0.2 seconds by default.
-@export_range(0, 0.5) var jumpBuffering: float = 0.2
+@export_range(0, 2) var jumpBuffering: float = 0.2
+
 
 #INFO EXTRAS
-@export_category("Wall Jumping")
+@export_group("Wall Jumping")
 ##Allows your player to jump off of walls. Without a Wall Kick Angle, the player will be able to scale the wall.
 @export var wallJump: bool = false
 ##How long the player's movement input will be ignored after wall jumping.
@@ -59,16 +65,22 @@ class_name PlatformerController2D
 @export var wallLatching: bool = false
 ##wall latching must be enabled for this to work. #If enabled, the player must hold down the "latch" key to wall latch. Assign "latch" in the project input settings. The player's input will be ignored when latching.
 @export var wallLatchingModifer: bool = false
-@export_category("Dashing")
+
+
+@export_group("Dashing")
 ##The type of dashes the player can do.
 @export_enum("None", "Horizontal", "Vertical", "Four Way", "Eight Way") var dashType: int
 ##How many dashes your player can do before needing to hit the ground.
 @export_range(0, 10) var dashes: int = 1
+##Sets the speed of the character during the dash
+@export_range(200, 1200) var dashSpeed: int = 400
 ##If enabled, pressing the opposite direction of a dash, during a dash, will zero the player's velocity.
 @export var dashCancel: bool = true
 ##How far the player will dash. One of the dashing toggles must be on for this to be used.
 @export_range(1.5, 4) var dashLength: float = 2.5
-@export_category("Corner Cutting/Jump Correct")
+
+
+@export_group("Corner Cutting/Jump Correct")
 ##If the player's head is blocked by a jump but only by a little, the player will be nudged in the right direction and their jump will execute as intended. NEEDS RAYCASTS TO BE ATTACHED TO THE PLAYER NODE. AND ASSIGNED TO MOUNTING RAYCAST. DISTANCE OF MOUNTING DETERMINED BY PLACEMENT OF RAYCAST.
 @export var cornerCutting: bool = false
 ##How many pixels the player will be pushed (per frame) if corner cutting is needed to correct a jump.
@@ -79,7 +91,7 @@ class_name PlatformerController2D
 @export var middleRaycast: RayCast2D
 ##Raycast used for corner cutting calculations. Place above and to the right of the players head point up. ALL ARE NEEDED FOR IT TO WORK.
 @export var rightRaycast: RayCast2D
-@export_category("Down Input")
+@export_group("Down Input")
 ##Holding down will crouch the player. Crouching script may need to be changed depending on how your player's size proportions are. It is built for 32x player's sprites.
 @export var crouch: bool = false
 ##Holding down and pressing the input for "roll" will execute a roll if the player is grounded. Assign a "roll" input in project settings input.
@@ -92,7 +104,7 @@ class_name PlatformerController2D
 ##If enabled, pressing up will end the ground pound early
 @export var upToCancel: bool = false
 
-@export_category("Animations (Check Box if has animation)")
+@export_group("Animations (Check Box if has animation)")
 ##Animations must be named "run" all lowercase as the check box says
 @export var run: bool
 ##Animations must be named "jump" all lowercase as the check box says
@@ -133,9 +145,17 @@ var jumpWasPressed: bool = false
 var coyoteActive: bool = false
 var dashMagnitude: float
 var gravityActive: bool = true
+
 var dashing: bool = false
 var dashCount: int
+var lastdash_direction: Vector2 = Vector2.ZERO
+var wavedashing: bool = false
 var rolling: bool = false
+
+
+var jump_velocity: float
+var jump_gravity: float
+var fall_gravity: float
 
 var twoWayDashHorizontal
 var twoWayDashVertical
@@ -190,10 +210,15 @@ func _updateData():
 	acceleration = maxSpeed / timeToReachMaxSpeed
 	deceleration = -maxSpeed / timeToReachZeroSpeed
 	
-	jumpMagnitude = (10.0 * jumpHeight) * gravityScale
+	
+	jump_velocity = ((2.0 * jumpHeight) / jump_peak_time) * -1.0
+	jump_gravity = ((-2.0 * jumpHeight) / (jump_peak_time * jump_peak_time)) * -1.0
+	fall_gravity = ((-2.0 * jumpHeight) / (jump_fall_time * jump_fall_time)) * -1.0
+	
+	_set_jumpMagnitude()
 	jumpCount = jumps
 	
-	dashMagnitude = maxSpeed * dashLength
+	dashMagnitude = dashSpeed * dashLength # the magnitude of the dash vector, maximum speed times the length of the dash in time
 	dashCount = dashes
 	
 	maxSpeedLock = maxSpeed
@@ -435,9 +460,9 @@ func _physics_process(delta):
 			
 	#INFO Jump and Gravity
 	if velocity.y > 0:
-		appliedGravity = gravityScale * descendingGravityFactor
+		appliedGravity = jump_gravity
 	else:
-		appliedGravity = gravityScale
+		appliedGravity = fall_gravity
 	
 	if is_on_wall() and !groundPounding:
 		appliedTerminalVelocity = terminalVelocity / wallSliding
@@ -509,18 +534,13 @@ func _physics_process(delta):
 			
 			
 	#INFO dashing
-	if is_on_floor():
-		dashCount = dashes
-	if eightWayDash and dashTap and dashCount > 0 and !rolling:
-		var input_direction = Input.get_vector("left", "right", "up", "down")
-		var dTime = 0.0625 * dashLength
-		_dashingTime(dTime)
-		_pauseGravity(dTime)
-		velocity = dashMagnitude * input_direction
-		dashCount += -1
-		movementInputMonitoring = Vector2(false, false)
-		_inputPauseReset(dTime)
 	
+	if is_on_floor(): # Reset the dash counter when the player touches the ground
+		dashCount = dashes
+	
+	dash_eightway()
+	
+	## Vertical Two Way Dash
 	if twoWayDashVertical and dashTap and dashCount > 0 and !rolling:
 		var dTime = 0.0625 * dashLength
 		if upHold and downHold:
@@ -542,6 +562,7 @@ func _physics_process(delta):
 			movementInputMonitoring = Vector2(false, false)
 			_inputPauseReset(dTime)
 	
+	## Horizontal Two Way Dash
 	if twoWayDashHorizontal and dashTap and dashCount > 0 and !rolling:
 		var dTime = 0.0625 * dashLength
 		if wasPressingR and !(upHold or downHold):
@@ -561,6 +582,7 @@ func _physics_process(delta):
 			movementInputMonitoring = Vector2(false, false)
 			_inputPauseReset(dTime)
 			
+	## Functionality for dash cancelling
 	if dashing and velocity.x > 0 and leftTap and dashCancel:
 		velocity.x = 0
 	if dashing and velocity.x < 0 and rightTap and dashCancel:
@@ -596,12 +618,28 @@ func _coyoteTime():
 	coyoteActive = false
 	jumpCount += -1
 
+func dash_eightway(): # this entire function is running in the physics process
+	if eightWayDash and dashTap and dashCount > 0 and !rolling:
+		var input_direction: Vector2 = Input.get_vector("left", "right", "up", "down") # Get input direction
+		var dTime: float = 0.0625 * dashLength 
+		_dashingTime(dTime) # sets the dashing state for the dash time
+		_pauseGravity(dTime) # pause gravity for the duration of dash
+		velocity = dashMagnitude * input_direction
+		dashCount += -1
+		lastdash_direction = input_direction
+		movementInputMonitoring = Vector2(false, false)
+		_inputPauseReset(dTime)
+
+## Handles the logic for setting the jumpMagnitude based on the state at the time of jumping
+func _set_jumpMagnitude() -> void:
+	jumpMagnitude = -jump_velocity * gravityScale
+
 func _jump():
 	if jumpCount > 0:
 		velocity.y = -jumpMagnitude
 		jumpCount += -1
 		jumpWasPressed = false
-
+		
 func _wallJump():
 	var horizontalWallKick = abs(jumpMagnitude * cos(wallKickAngle * (PI / 180)))
 	var verticalWallKick = abs(jumpMagnitude * sin(wallKickAngle * (PI / 180)))

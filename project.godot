@@ -19,6 +19,14 @@ config/icon="res://icon.svg"
 
 Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
 
+[display]
+
+window/size/viewport_width=3840
+window/size/viewport_height=2160
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/vsync/vsync_mode=0
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
