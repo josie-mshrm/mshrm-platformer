@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://brctm4i0vf2o4"]
 
-[ext_resource type="Script" path="res://scripts/classes/orb.gd" id="1_084yc"]
+[ext_resource type="Script" path="res://system/classes/orb.gd" id="1_084yc"]
 [ext_resource type="PackedScene" uid="uid://c32giw1o6jci7" path="res://modules/HitboxModule.tscn" id="2_g6dlp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j166e"]

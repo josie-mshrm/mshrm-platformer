@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn25vofftlmed"]
+
+[ext_resource type="Script" path="res://system/controllers/state machine/state_idle.gd" id="1_l377m"]
+
+[node name="idle" type="Node"]
+script = ExtResource("1_l377m")

@@ -1,3 +1,3 @@
-extends PlatformerController2DDirty
+extends Soul
 
 class_name Player
