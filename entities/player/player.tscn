@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_oppev"]
 [ext_resource type="SpriteFrames" uid="uid://brfsjyrtd0uoi" path="res://entities/player/player_animation.tres" id="2_wmoqf"]
 [ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://modules/HealthModule.tscn" id="3_4nbfh"]
-[ext_resource type="Script" path="res://system/controllers/state machine/state_machine.gd" id="5_4k3va"]
 [ext_resource type="PackedScene" uid="uid://c32giw1o6jci7" path="res://modules/HitboxModule.tscn" id="5_07nb6"]
+[ext_resource type="PackedScene" uid="uid://djpqoust68ki2" path="res://system/controllers/state machine/state_machine.tscn" id="5_020wp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ql6lj"]
 size = Vector2(120, 61)
@@ -46,5 +46,5 @@ visible = false
 position = Vector2(15, -235)
 shape = SubResource("CapsuleShape2D_m8f31")
 
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource("5_4k3va")
+[node name="StateMachine" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_020wp")]
+parent = NodePath("..")

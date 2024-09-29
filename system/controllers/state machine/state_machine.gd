@@ -2,15 +2,24 @@ class_name StateMachine
 extends Node
 
 @export var initial_state: State
+@export var parent: Soul
 
 var current_state : State
 var states : Dictionary = {}
 
+
+@onready var statetext: Label = $statetext
+
+
 func _ready() -> void:
+	#get a list of possible signals
+	#loop through the list, connect to the signal
+	
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
 			child.transitioned.connect(on_child_transitioned)
+			child.parent_soul = parent
 	
 	if initial_state:
 		initial_state.enter()
@@ -19,6 +28,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if current_state:
 		current_state.update(delta)
+	
+	statetext.text = str(current_state)
 
 func _physics_process(delta: float) -> void:
 	if current_state:

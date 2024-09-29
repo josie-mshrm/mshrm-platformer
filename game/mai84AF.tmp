@@ -9,7 +9,15 @@
 
 [node name="InputController" type="Node" parent="."]
 script = ExtResource("3_a6vaw")
-set_input_as_handled = false
+max_button_tap = null
+max_double_tap_delay = null
+max_button_press = null
+max_long_press = null
+ui_inputs = null
+shortcut_inputs = null
+unhandled_key_inputs = null
+unhandled_inputs = null
+set_input_as_handled = null
 
 [node name="Level1" parent="." instance=ExtResource("1_qmeur")]
 

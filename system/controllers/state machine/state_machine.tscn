@@ -4,3 +4,9 @@
 
 [node name="StateMachine" type="Node"]
 script = ExtResource("1_utqn6")
+
+[node name="statetext" type="Label" parent="."]
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = -12.0

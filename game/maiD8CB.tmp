@@ -9,7 +9,6 @@
 
 [node name="InputController" type="Node" parent="."]
 script = ExtResource("3_a6vaw")
-set_input_as_handled = false
 
 [node name="Level1" parent="." instance=ExtResource("1_qmeur")]
 

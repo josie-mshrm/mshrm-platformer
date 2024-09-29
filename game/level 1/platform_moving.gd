@@ -4,7 +4,7 @@ extends AnimatableBody2D
 
 
 
-func _on_area_2d_body_entered(body: Player) -> void:
+func _on_area_2d_body_entered(_body: Player) -> void:
 	animation_player.play("slide left")
 	await get_tree().create_timer(2.0).timeout
 	animation_player.play("RESET")
