@@ -10,6 +10,7 @@ var jumping : bool = false
 @export var jump_fall_time: float = 0.3
 @export var min_jump_time: float = 0.15
 @export var jumps: int = 3
+@export var x_mod: float = 1
 
 @onready var move_hsm: LimboHSM = $".."
 
@@ -36,7 +37,7 @@ func _exit() -> void:
 
 
 func _update(delta: float) -> void:
-	soul.velocity.x = soul.speed * soul.input_direction.x
+	move_hsm.move_character_x(delta, x_mod)
 	if jumping:
 		move_hsm.gravity.y = jump_gravity
 	else:

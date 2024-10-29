@@ -8,6 +8,7 @@ var input_direction : Vector2 = Vector2.ZERO
 var valid_actions : Dictionary
 
 @onready var player_hsm: LimboHSM = $MoveHSM
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	action_list.set_action_dict()
@@ -19,7 +20,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	pass
+	if input_direction.x < 0:
+		animated_sprite_2d.flip_h = true
+	elif input_direction.x > 0:
+		animated_sprite_2d.flip_h = false
 
 func on_state_update(state: LimboState, last_state : LimboState):
 	

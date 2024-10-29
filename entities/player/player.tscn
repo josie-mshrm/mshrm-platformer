@@ -51,10 +51,9 @@ shape = SubResource("CapsuleShape2D_m8f31")
 
 [node name="MoveHSM" type="LimboHSM" parent="."]
 script = ExtResource("6_1fvid")
+decel_rate = 0.9
 
 [node name="GroundState" parent="MoveHSM" instance=ExtResource("7_sgfo2")]
-accel_time = 0.4
-decel_rate = 0.2
 
 [node name="AirState" parent="MoveHSM" instance=ExtResource("8_0eie8")]
-jumps = 2
+x_mod = 1.15
