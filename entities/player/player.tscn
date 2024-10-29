@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://5iclcc2smej6"]
+[gd_scene load_steps=11 format=3 uid="uid://5iclcc2smej6"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_oppev"]
+[ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://system/resources/player_action_list.tres" id="2_hbaqi"]
 [ext_resource type="SpriteFrames" uid="uid://brfsjyrtd0uoi" path="res://entities/player/player_animation.tres" id="2_wmoqf"]
 [ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://modules/HealthModule.tscn" id="3_4nbfh"]
 [ext_resource type="PackedScene" uid="uid://c32giw1o6jci7" path="res://modules/HitboxModule.tscn" id="5_07nb6"]
-[ext_resource type="PackedScene" uid="uid://djpqoust68ki2" path="res://system/controllers/state machine/state_machine.tscn" id="5_020wp"]
+[ext_resource type="Script" path="res://entities/player/move_hsm.gd" id="6_1fvid"]
+[ext_resource type="PackedScene" uid="uid://duyl76sc706qk" path="res://entities/abilities/states/ground_state.tscn" id="7_sgfo2"]
+[ext_resource type="PackedScene" uid="uid://6mwr5hgf6ldk" path="res://entities/abilities/states/air_state.tscn" id="8_0eie8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ql6lj"]
 size = Vector2(120, 61)
@@ -18,16 +21,16 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 16
 collision_mask = 199
 script = ExtResource("1_oppev")
+action_list = ExtResource("2_hbaqi")
 health_mod = NodePath("HealthModule")
 max_health = 200
-speed = 200
+speed = 1000
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -350)
 sprite_frames = ExtResource("2_wmoqf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(15, -30)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_ql6lj")
@@ -36,7 +39,7 @@ shape = SubResource("RectangleShape2D_ql6lj")
 soul = NodePath("..")
 
 [node name="HitboxModule" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_07nb6")]
-collision_layer = 16
+collision_layer = 32
 collision_mask = 71
 health = NodePath("../HealthModule")
 metadata/_edit_lock_ = true
@@ -46,5 +49,12 @@ visible = false
 position = Vector2(15, -235)
 shape = SubResource("CapsuleShape2D_m8f31")
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_020wp")]
-parent = NodePath("..")
+[node name="MoveHSM" type="LimboHSM" parent="."]
+script = ExtResource("6_1fvid")
+
+[node name="GroundState" parent="MoveHSM" instance=ExtResource("7_sgfo2")]
+accel_time = 0.4
+decel_rate = 0.2
+
+[node name="AirState" parent="MoveHSM" instance=ExtResource("8_0eie8")]
+jumps = 2

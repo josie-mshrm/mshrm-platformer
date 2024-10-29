@@ -1,17 +1,43 @@
+class_name Player
 extends Soul
 
-class_name Player
+## Signal for actions that respond to the player's input
+signal player_input_action(action: StringName)
 
-var player_actions : Dictionary = {
-	"move_left" : InputType.ACTIVE,
-	"move_right" : InputType.ACTIVE,
-	"move_down" : InputType.ACTIVE,
-	"move_up" : InputType.ACTIVE,
-	"jump" : InputType.ACTIVE,
-	"dash_short" : InputType.ACTIVE,
-	"dash_long" : InputType.ACTIVE,
-	"wall_grab" : InputType.HOLD,
-}
+var input_direction : Vector2 = Vector2.ZERO
+var valid_actions : Dictionary
+
+@onready var player_hsm: LimboHSM = $MoveHSM
 
 func _ready() -> void:
-	actions = player_actions
+	action_list.set_action_dict()
+	
+	## State Machine Setup
+	player_hsm.active_state_changed.connect(on_state_update)
+	player_hsm.initialize(self)
+	player_hsm.set_active(true)
+
+
+func _process(delta: float) -> void:
+	pass
+
+func on_state_update(state: LimboState, last_state : LimboState):
+	
+	print(state)
+
+## Receives action from controller
+## Sends action to state machine and emits signal for other nodes
+func on_recieve_action(control_action : StringName, _event : InputEvent):
+	if valid_actions.is_empty():
+		valid_actions = self.action_list.ActionDict
+	
+	if valid_actions.has(control_action): # If the action is allowed by the character body
+		player_input_action.emit(control_action)
+	else:
+		print("invalid input")
+		print(control_action)
+
+
+
+func on_recieve_movement(direction: Vector2):
+	input_direction = direction

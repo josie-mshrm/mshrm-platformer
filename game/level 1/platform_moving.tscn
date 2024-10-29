@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxnhpbsdvfmtn"]
+[gd_scene load_steps=6 format=3 uid="uid://cxnhpbsdvfmtn"]
 
 [ext_resource type="Script" path="res://game/level 1/platform_moving.gd" id="1_1rnaj"]
 [ext_resource type="Texture2D" uid="uid://qynhoar0emi7" path="res://game/tileset trial.svg" id="1_nqbgy"]
@@ -10,51 +10,17 @@ region = Rect2(0, 0, 64, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bg631"]
 size = Vector2(256, 32)
 
-[sub_resource type="Animation" id="Animation_kahaf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_tb3en"]
-resource_name = "slide left"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-1000, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmqfg"]
-_data = {
-"RESET": SubResource("Animation_kahaf"),
-"slide left": SubResource("Animation_tb3en")
-}
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72g7q"]
 size = Vector2(246, 15)
 
-[node name="PlatMoving" type="AnimatableBody2D"]
+[node name="PlatMoving" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 84
-constant_linear_velocity = Vector2(-40, 0)
-constant_angular_velocity = 0.0872665
+gravity_scale = 0.0
+freeze_mode = 1
 script = ExtResource("1_1rnaj")
+distance = Vector2(-300, 0)
+time = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4, 0.5)
@@ -62,12 +28,6 @@ texture = SubResource("AtlasTexture_5v15a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bg631")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_tmqfg")
-}
-speed_scale = 4.0
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0, -16)
@@ -79,3 +39,4 @@ position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_72g7q")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

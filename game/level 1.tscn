@@ -36,4 +36,8 @@ tile_set = SubResource("TileSet_e2iwu")
 [node name="LevelReset" parent="." instance=ExtResource("2_8vn6c")]
 position = Vector2(0, 3000)
 
-[node name="PlatMoving" parent="." instance=ExtResource("3_v03i5")]
+[node name="PlatMoving" parent="." node_paths=PackedStringArray("reset") instance=ExtResource("3_v03i5")]
+distance = Vector2(-800, 0)
+reset = NodePath("reset")
+
+[node name="reset" type="Marker2D" parent="PlatMoving"]

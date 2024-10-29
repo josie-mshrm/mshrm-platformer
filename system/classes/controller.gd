@@ -1,11 +1,14 @@
-extends Node
 class_name Controller
+extends Node
+## This class is for character controllers that send single commands to the Soul
+## that this is the parent for.
 
-@export var child : Soul
+## This signal tells the body being controlled what action to take
+signal ctrl_send_action(action : StringName, input : InputEvent)
+signal ctrl_send_movement(move_direction: Vector2)
 
-signal send_action(action)
-
-var soul_action: String
+## The vector for the character's movement
+var ctrl_move_dir : Vector2 = Vector2.ZERO
 
 enum InputType {
 	ACTIVE,

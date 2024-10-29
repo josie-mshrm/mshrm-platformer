@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dn25vofftlmed"]
-
-[ext_resource type="Script" path="res://system/controllers/state machine/state_ground.gd" id="1_ea63u"]
-
-[node name="ground" type="Node"]
-script = ExtResource("1_ea63u")

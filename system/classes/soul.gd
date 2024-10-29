@@ -1,19 +1,34 @@
 class_name Soul
 extends CharacterBody2D
 
-
 @export var control_node: Controller
+@export var action_list: ActionList
+
 @export var health_mod: HealthModule
 @export var max_health: int
 @export var speed: int
 
-var InputType = control_node.InputType
 
-## List of possible actions taken by this soul: ("action name" : InputType)
-var actions : Dictionary = {"name" : InputType}
-
+## Connect to the controller's "send_action" signal
 func _enter_tree() -> void:
-	control_node.send_action.connect(on_recieve_action)
+	control_node.ctrl_send_action.connect(on_recieve_action)
+	control_node.ctrl_send_movement.connect(on_recieve_movement)
 
-func on_recieve_action(action):
-	print(action + " recieved")
+## Send the action from the controller to the appropriate node
+## Currently this is just the state machine, but this can be used elsewhere to trigger
+## animations, sound effects, etc.
+func on_recieve_action(_control_action : StringName, _event : InputEvent):
+	pass
+
+func on_recieve_movement(_direction: Vector2):
+	pass
+
+func get_valid_actions() -> Array:
+	## Get the list of allowed actions from the action list arrays
+	## The values themselves are arrays, must loop through them
+	var valid_actions_list : Array
+	
+	for value in action_list.ActionDict.values(): # For each of the Dictionary's Arrays
+		valid_actions_list.append_array(value)
+	
+	return valid_actions_list
