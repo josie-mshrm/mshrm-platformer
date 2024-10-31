@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://5iclcc2smej6"]
+[gd_scene load_steps=11 format=3 uid="uid://5iclcc2smej6"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_oppev"]
 [ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://system/resources/player_action_list.tres" id="2_hbaqi"]
@@ -7,9 +7,11 @@
 [ext_resource type="Script" path="res://entities/player/move_hsm.gd" id="6_1fvid"]
 [ext_resource type="PackedScene" uid="uid://duyl76sc706qk" path="res://entities/abilities/states/ground_state.tscn" id="7_sgfo2"]
 [ext_resource type="PackedScene" uid="uid://6mwr5hgf6ldk" path="res://entities/abilities/states/air_state.tscn" id="8_0eie8"]
+[ext_resource type="PackedScene" uid="uid://cmebbv2ris04h" path="res://entities/abilities/states/wall_state.tscn" id="8_noh0d"]
+[ext_resource type="Script" path="res://entities/abilities/states/wall_state.gd" id="9_8g4p0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g35ie"]
-radius = 21.1005
+radius = 19.1004
 height = 146.207
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_mod")]
@@ -42,4 +44,10 @@ decel_rate = 0.9
 [node name="GroundState" parent="MoveHSM" instance=ExtResource("7_sgfo2")]
 
 [node name="AirState" parent="MoveHSM" instance=ExtResource("8_0eie8")]
+min_jump_time = 0.05
 x_mod = 1.15
+
+[node name="LimboState" type="LimboState" parent="MoveHSM/AirState"]
+
+[node name="WallState" parent="MoveHSM" instance=ExtResource("8_noh0d")]
+script = ExtResource("9_8g4p0")

@@ -21,6 +21,7 @@ input_controller = NodePath("../../InputController")
 position = Vector2(162, -949)
 scale = Vector2(1, 1)
 control_node = NodePath("..")
+speed = 800
 
 [node name="Camera2D" type="Camera2D" parent="Level1/PlayerController/Player"]
 zoom = Vector2(0.8, 0.8)

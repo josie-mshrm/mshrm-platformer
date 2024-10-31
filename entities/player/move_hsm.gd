@@ -7,6 +7,7 @@ extends LimboHSM
 @onready var soul: Player = $".."
 @onready var ground_state: GroundState = $GroundState
 @onready var air_state: AirState = $AirState
+@onready var wall_state: WallState = $WallState
 
 var jump_pressed : bool = false
 var gravity : Vector2
@@ -26,12 +27,13 @@ func _setup() -> void:
 	
 	ground_state.soul = soul
 	air_state.soul = soul
+	wall_state.soul = soul
 	initial_state = ground_state
 	
-	add_transition(ANYSTATE, air_state, "jump")
-	add_transition(ANYSTATE, air_state, "air")
-	add_transition(air_state, ground_state, "ground")
-	
+	add_transition(ground_state, air_state, "jump")
+	add_transition(air_state, ground_state, "landing")
+	add_transition(air_state, wall_state, "wall hit")
+	add_transition(wall_state, air_state, "wall jump")
 
 
 func _update(delta: float) -> void:
@@ -44,8 +46,20 @@ func _update(delta: float) -> void:
 func on_player_input(action: StringName):
 	if action == "jump":
 		if air_state.can_jump():
-			air_state.is_jump = true
-			change_active_state(air_state)
+			var state : LimboState = get_active_state()
+			match state:
+				GroundState:
+					air_state.jump_type = air_state.Jump.BASIC
+					dispatch("jump")
+				WallState:
+					air_state.jump_type = air_state.Jump.WALL
+					dispatch("wall jump")
+				_:
+					air_state.jump_type = air_state.Jump.BASIC
+					dispatch("jump")
+			
+			
+			
 
 ## Function for moving the character on the x axis based on player input, including a modifier for the speed of movement
 func move_character_x(delta: float, state_mod: float):
@@ -63,6 +77,6 @@ func move_character_x(delta: float, state_mod: float):
 		else:
 			soul.velocity.x -= decel_rate * accel * sign(soul.velocity.x) * delta * state_mod
 
-## TODO add wall state
 ## TODO add wall slide
+## TODO add wall jump
 ## TODO add input buffering
