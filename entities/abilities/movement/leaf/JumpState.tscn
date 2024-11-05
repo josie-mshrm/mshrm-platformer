@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cks5h065gwsgc"]
 
-[ext_resource type="Script" path="res://entities/abilities/movement/actions/jump_state.gd" id="1_d3shd"]
+[ext_resource type="Script" path="res://entities/abilities/movement/leaf/jump_state.gd" id="1_d3shd"]
 
 [node name="JumpState" type="LimboState"]
 script = ExtResource("1_d3shd")

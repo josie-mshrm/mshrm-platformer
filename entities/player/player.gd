@@ -7,16 +7,16 @@ signal player_input_action(action: StringName)
 var input_direction : Vector2 = Vector2.ZERO
 var valid_actions : Dictionary
 
-@onready var player_hsm: LimboHSM = $PlayerMoveHSM
+@onready var movement_tree: MoveBranch = $MovementTree
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	action_list.set_action_dict()
 	
 	## State Machine Setup
-	player_hsm.active_state_changed.connect(on_state_update)
-	player_hsm.initialize(self)
-	player_hsm.set_active(true)
+	movement_tree.active_state_changed.connect(on_state_update)
+	movement_tree.initialize(self)
+	movement_tree.set_active(true)
 
 
 func _process(delta: float) -> void:
@@ -26,8 +26,8 @@ func _process(delta: float) -> void:
 		animated_sprite_2d.flip_h = false
 
 func on_state_update(state: LimboState, last_state : LimboState):
-	
-	print(state)
+	pass
+	#print(state)
 
 ## Receives action from controller
 ## Sends action to state machine and emits signal for other nodes

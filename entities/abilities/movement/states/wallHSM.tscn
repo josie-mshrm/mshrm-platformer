@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmebbv2ris04h"]
-
-[ext_resource type="Script" path="res://entities/abilities/movement/states/wallHSM.gd" id="1_nn27w"]
-
-[node name="WallState" type="LimboHSM"]
-script = ExtResource("1_nn27w")

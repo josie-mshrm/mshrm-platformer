@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://i8sp6e5hc6xd"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/leaf/run_state.gd" id="1_50a7g"]
+
+[node name="RunState" type="LimboState"]
+script = ExtResource("1_50a7g")

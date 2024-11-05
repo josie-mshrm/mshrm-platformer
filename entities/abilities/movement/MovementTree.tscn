@@ -1,0 +1,24 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmfi7rml7drpt"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/MovementTree.gd" id="1_yirm8"]
+[ext_resource type="PackedScene" uid="uid://duyl76sc706qk" path="res://entities/abilities/movement/branch/ground_branch.tscn" id="2_a0s56"]
+[ext_resource type="PackedScene" uid="uid://b15aqipwb20vv" path="res://entities/abilities/movement/leaf/IdleState.tscn" id="3_di5tl"]
+[ext_resource type="PackedScene" uid="uid://i8sp6e5hc6xd" path="res://entities/abilities/movement/leaf/RunState.tscn" id="4_6hbgb"]
+[ext_resource type="PackedScene" uid="uid://6mwr5hgf6ldk" path="res://entities/abilities/movement/branch/air_branch.tscn" id="5_ooa6r"]
+[ext_resource type="PackedScene" uid="uid://cks5h065gwsgc" path="res://entities/abilities/movement/leaf/JumpState.tscn" id="6_bd8ah"]
+[ext_resource type="PackedScene" uid="uid://dmvr5piar72vt" path="res://entities/abilities/movement/leaf/FallState.tscn" id="7_7pgtk"]
+
+[node name="MovementTree" type="LimboHSM"]
+script = ExtResource("1_yirm8")
+
+[node name="GroundBranch" parent="." instance=ExtResource("2_a0s56")]
+
+[node name="IdleState" parent="GroundBranch" instance=ExtResource("3_di5tl")]
+
+[node name="RunState" parent="GroundBranch" instance=ExtResource("4_6hbgb")]
+
+[node name="AirBranch" parent="." instance=ExtResource("5_ooa6r")]
+
+[node name="JumpState" parent="AirBranch" instance=ExtResource("6_bd8ah")]
+
+[node name="FallState" parent="AirBranch" instance=ExtResource("7_7pgtk")]

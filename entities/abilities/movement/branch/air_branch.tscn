@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://6mwr5hgf6ldk"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/branch/air_branch.gd" id="1_gxm7c"]
+
+[node name="AirBranch" type="LimboHSM"]
+script = ExtResource("1_gxm7c")

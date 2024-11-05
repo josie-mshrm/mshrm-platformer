@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b15aqipwb20vv"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/leaf/idle_state.gd" id="1_5cjmr"]
+
+[node name="IdleState" type="LimboState"]
+script = ExtResource("1_5cjmr")

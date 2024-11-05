@@ -8,7 +8,6 @@ var release_time: float = 0
 
 
 func _setup() -> void:
-	super()
 	# Sets the "can_jump" function to be a check before entering this state
 	set_guard(can_jump) 
 
@@ -24,6 +23,8 @@ func _update(delta: float) -> void:
 	
 	if surface_hit():
 		dispatch("end jump")
+	
+	soul.move_and_slide()
 
 func jump():
 	soul.velocity.y = host.jump_velocity

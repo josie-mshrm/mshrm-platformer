@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmebbv2ris04h"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/branch/wall_branch.gd" id="1_5640s"]
+
+[node name="WallBranch" type="LimboHSM"]
+script = ExtResource("1_5640s")

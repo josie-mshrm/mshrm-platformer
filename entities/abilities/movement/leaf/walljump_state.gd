@@ -1,3 +1,4 @@
+class_name WallJumpState
 extends MoveState
 
 func _setup() -> void:

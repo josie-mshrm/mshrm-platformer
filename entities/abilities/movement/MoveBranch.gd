@@ -1,4 +1,4 @@
-class_name MoveHSM
+class_name MoveBranch
 extends LimboHSM
 
 @export_group("Movement Stats")
@@ -20,9 +20,8 @@ var fall_gravity: float
 
 ## Dependency Variables
 var is_coyote : bool = false
-
-var soul : Soul
-var host : MoveHSM
+var host : MoveBranch
+var soul: Soul
 
 func _ready() -> void:
 	pass
@@ -36,11 +35,6 @@ func _enter() -> void:
 
 func _exit() -> void:
 	pass
-
-func _update(delta: float) -> void:
-	## Apply gravity
-	soul.velocity.y += gravity.y * delta
-
 
 ## Function for moving the character on the x axis based on player input, including a modifier for the speed of movement
 func move_character_x(delta: float, state_mod: float):

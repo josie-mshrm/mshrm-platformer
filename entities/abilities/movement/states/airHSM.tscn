@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://6mwr5hgf6ldk"]
-
-[ext_resource type="Script" path="res://entities/abilities/movement/states/airHSM.gd" id="1_x4sfx"]
-
-[node name="AirHSM" type="LimboHSM"]
-script = ExtResource("1_x4sfx")

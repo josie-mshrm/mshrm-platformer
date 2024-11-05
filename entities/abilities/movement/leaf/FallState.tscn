@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmvr5piar72vt"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/leaf/fall_state.gd" id="1_vin2r"]
+
+[node name="FallState" type="LimboState"]
+script = ExtResource("1_vin2r")
