@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_4ksr7")
-MovementActions = Array[String](["left", "right", "up", "down", "jump"])
+MovementActions = Array[StringName]([&"left", &"right", &"up", &"down", &"jump"])
 AttackActions = Array[StringName]([])

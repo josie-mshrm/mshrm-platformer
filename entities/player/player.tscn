@@ -1,14 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://5iclcc2smej6"]
+[gd_scene load_steps=10 format=3 uid="uid://5iclcc2smej6"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_oppev"]
 [ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://system/resources/player_action_list.tres" id="2_hbaqi"]
 [ext_resource type="SpriteFrames" uid="uid://brfsjyrtd0uoi" path="res://entities/player/player_animation.tres" id="2_wmoqf"]
 [ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://modules/HealthModule.tscn" id="3_4nbfh"]
-[ext_resource type="Script" path="res://entities/player/move_hsm.gd" id="6_1fvid"]
-[ext_resource type="PackedScene" uid="uid://duyl76sc706qk" path="res://entities/abilities/states/ground_state.tscn" id="7_sgfo2"]
-[ext_resource type="PackedScene" uid="uid://6mwr5hgf6ldk" path="res://entities/abilities/states/air_state.tscn" id="8_0eie8"]
-[ext_resource type="PackedScene" uid="uid://cmebbv2ris04h" path="res://entities/abilities/states/wall_state.tscn" id="8_noh0d"]
-[ext_resource type="Script" path="res://entities/abilities/states/wall_state.gd" id="9_8g4p0"]
+[ext_resource type="Script" path="res://entities/player/player_move_hsm.gd" id="6_1fvid"]
+[ext_resource type="PackedScene" uid="uid://6mwr5hgf6ldk" path="res://entities/abilities/movement/states/airHSM.tscn" id="7_e0gvk"]
+[ext_resource type="PackedScene" uid="uid://duyl76sc706qk" path="res://entities/abilities/movement/states/groundHSM.tscn" id="7_sgfo2"]
+[ext_resource type="PackedScene" uid="uid://cks5h065gwsgc" path="res://entities/abilities/movement/actions/JumpState.tscn" id="8_ij38j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g35ie"]
 radius = 19.1004
@@ -37,17 +36,18 @@ shape = SubResource("CapsuleShape2D_g35ie")
 [node name="HealthModule" parent="." node_paths=PackedStringArray("soul") instance=ExtResource("3_4nbfh")]
 soul = NodePath("..")
 
-[node name="MoveHSM" type="LimboHSM" parent="."]
+[node name="PlayerMoveHSM" type="LimboHSM" parent="."]
 script = ExtResource("6_1fvid")
+
+[node name="GroundHSM" parent="PlayerMoveHSM" instance=ExtResource("7_sgfo2")]
+
+[node name="AirHSM" parent="PlayerMoveHSM" instance=ExtResource("7_e0gvk")]
+accel_time = 0.25
 decel_rate = 0.9
+jumps = 3
+jump_height = 25.0
+jump_peak_time = 0.4
+jump_fall_time = 0.3
+min_jump_time = 0.15
 
-[node name="GroundState" parent="MoveHSM" instance=ExtResource("7_sgfo2")]
-
-[node name="AirState" parent="MoveHSM" instance=ExtResource("8_0eie8")]
-min_jump_time = 0.05
-x_mod = 1.15
-
-[node name="LimboState" type="LimboState" parent="MoveHSM/AirState"]
-
-[node name="WallState" parent="MoveHSM" instance=ExtResource("8_noh0d")]
-script = ExtResource("9_8g4p0")
+[node name="JumpState" parent="PlayerMoveHSM/AirHSM" instance=ExtResource("8_ij38j")]

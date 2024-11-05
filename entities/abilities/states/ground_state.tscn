@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://duyl76sc706qk"]
-
-[ext_resource type="Script" path="res://entities/abilities/states/ground_state.gd" id="1_pm65a"]
-
-[node name="GroundState" type="LimboState"]
-script = ExtResource("1_pm65a")

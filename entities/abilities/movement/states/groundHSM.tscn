@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duyl76sc706qk"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/states/groundHSM.gd" id="1_yp8u2"]
+
+[node name="GroundHSM" type="LimboHSM"]
+script = ExtResource("1_yp8u2")

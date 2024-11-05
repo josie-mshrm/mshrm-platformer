@@ -1,5 +1,5 @@
-class_name WallState
-extends LimboState
+class_name WallHSM
+extends LimboHSM
 
 @export var x_mod: float = 1
 
