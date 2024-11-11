@@ -1,10 +1,29 @@
 class_name MovementTree
-extends MoveHSM
+extends MoveBranch
 
-@onready var idle_state: IdleState = $IdleState
-@onready var run_state: RunState = $RunState
-@onready var fall_state: FallState = $FallState
-@onready var jump_state: JumpState = $JumpState
+@export_group("Movement Stats")
+@export var accel_time : float = 0.25
+@export var decel_rate : float = 0.9
+@export var jumps: int = 2
+@export var jump_height: float = 25.0
+@export var jump_peak_time: float = 0.4
+@export var jump_fall_time: float = 0.3
+@export var min_jump_time: float = 0.15
+@export var coyote_time: float = 0.2
+
+var gravity : Vector2
+var max_velocity : int
+var accel : float
+var jump_counter: int = 0
+var jump_velocity: float
+var jump_gravity: float
+var fall_gravity: float
+var is_coyote : bool = false
+var state : MoveState
+
+
+@onready var ground_branch: GroundBranch = $GroundBranch
+@onready var air_branch: AirBranch = $AirBranch
 
 
 func _ready() -> void:
@@ -18,29 +37,53 @@ func _ready() -> void:
 	accel = soul.speed / accel_time
 	
 	for child in get_children():
-		if child is MoveState:
+		if child is MoveBranch:
 			child.soul = soul
 			child.host = self
-	
+
 
 func _setup() -> void:
-	initial_state = idle_state
 	
-	add_transition(run_state, idle_state, &"idle")
-	add_transition(ANYSTATE, run_state, &"run")
-	add_transition(ANYSTATE, jump_state, &"jump")
-	add_transition(ANYSTATE, fall_state, &"fall")
-	
-	add_transition(jump_state, fall_state, &"end jump")
+	add_transition(ANYSTATE, air_branch, &"jump")
+	add_transition(air_branch, ground_branch, &"ground")
+	add_transition(ground_branch, air_branch, &"fall")
+
 
 func _update(delta: float) -> void:
 	## Apply gravity
 	soul.velocity.y += gravity.y * delta
 	
-	if soul.is_on_floor_only() and soul.input_direction.x == 0:
-		dispatch(&"idle")
+	soul.move_and_slide()
+
 
 ## Function for changing state based on player inputs
 func on_player_input(action: StringName):
 	if action == "jump":
+		air_branch.jump_flag = true
 		dispatch(&"jump")
+
+
+## Function for moving the character on the x axis based on player input, including a modifier for the speed of movement
+func move_character_x(delta: float, state_mod: float):
+	# if there is an input being pressed
+	if soul.input_direction.x != 0: 
+		if absf(soul.velocity.x) < max_velocity:
+			soul.velocity.x += accel * delta * soul.input_direction.x * state_mod
+		else:
+			soul.velocity.x = soul.speed * soul.input_direction.x * state_mod
+	
+	# if there is no input
+	else: 
+		if absf(soul.velocity.x) <= 30:
+			soul.velocity.x = 0
+		else:
+			soul.velocity.x -= decel_rate * accel * sign(soul.velocity.x) * delta * state_mod
+
+func calc_jump_var():
+	jump_velocity = ((2.0 * jump_height) / jump_peak_time) * -10.0
+	jump_gravity = ((-2.0 * jump_height) / (jump_peak_time * jump_peak_time)) * -10.0
+	fall_gravity = ((-2.0 * jump_height) / (jump_fall_time * jump_fall_time)) * -10.0
+
+func get_tree_state() -> MoveState:
+	var state = get_leaf_state()
+	return state

@@ -1,6 +1,7 @@
 class_name AirBranch
-extends MoveHSM
+extends MoveBranch
 
+var jump_flag : bool = false
 
 @onready var fall_state: FallState = $FallState
 @onready var jump_state: JumpState = $JumpState
@@ -17,19 +18,20 @@ func _setup() -> void:
 	add_transition(ANYSTATE, fall_state, &"fall")
 
 
+func _enter() -> void:
+	if jump_flag == true:
+		initial_state = jump_state
+		jump_flag = false
+	else:
+		initial_state = fall_state
+
+
 func _update(delta: float) -> void:
 	host.move_character_x(delta, x_mod)
 	
-	if soul.is_on_floor():
-		host.jump_counter = 0
-		if soul.input_direction.x != 0:
-			host.ground_enter_run()
-		else:
-			host.ground_enter_idle()
-	
-	# If soul is on wall and sliding down
-	if soul.is_on_wall_only() and soul.velocity.y > 0:
-		dispatch(&"wall")
+	if soul.is_on_floor_only():
+		dispatch(&"ground")
+
 
 func start_coyote_timer():
 	host.is_coyote = true

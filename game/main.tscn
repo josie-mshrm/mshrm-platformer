@@ -18,7 +18,7 @@ player_node = NodePath("Player")
 input_controller = NodePath("../../InputController")
 
 [node name="Player" parent="Level1/PlayerController" node_paths=PackedStringArray("control_node") instance=ExtResource("2_phk5y")]
-position = Vector2(162, -949)
+position = Vector2(3291, -410)
 scale = Vector2(1, 1)
 control_node = NodePath("..")
 speed = 800

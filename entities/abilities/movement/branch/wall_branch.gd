@@ -6,7 +6,6 @@ func _setup() -> void:
 
 func _update(delta: float) -> void:
 	if soul.is_on_floor():
-		jump_counter = 0
 		dispatch("ground")
 
 func start_coyote_timer():

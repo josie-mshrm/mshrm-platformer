@@ -14,11 +14,6 @@ func _exit() -> void:
 
 func _update(delta: float) -> void:
 	host.move_character_x(delta, x_mod)
-	
-	if surface_hit():
-		dispatch(&"end jump")
-	
-	soul.move_and_slide()
 
 func jump():
 	soul.velocity.y = host.jump_velocity
@@ -29,7 +24,7 @@ func jump():
 func surface_hit() -> bool:
 	if soul.is_on_floor():
 		return true
-	if soul.is_on_wall():
+	if soul.is_on_wall_only():
 		return true
 	else:
 		return false
