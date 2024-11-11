@@ -14,5 +14,5 @@ func _update(delta: float) -> void:
 	soul.move_and_slide()
 	
 	if soul.input_direction.x != 0:
-		dispatch("moving")
+		dispatch(&"run")
 	

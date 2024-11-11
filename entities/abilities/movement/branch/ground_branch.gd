@@ -10,8 +10,8 @@ func _setup() -> void:
 		child.soul = soul
 		child.host = host
 	
-	add_transition(idle_state, run_state, &"run")
-	add_transition(run_state, idle_state, &"idle")
+	add_transition(ANYSTATE, run_state, &"run")
+	add_transition(ANYSTATE, idle_state, &"idle")
 	
 	initial_state = idle_state
 
@@ -26,4 +26,4 @@ func _update(delta: float) -> void:
 	
 	#if the soul was on ground, and is now falling
 	if not soul.is_on_floor() and soul.velocity.y > 0:
-		dispatch(&"jump")
+		dispatch(&"fall")

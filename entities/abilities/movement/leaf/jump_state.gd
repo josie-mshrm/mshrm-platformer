@@ -10,25 +10,23 @@ func _enter() -> void:
 	jump()
 
 func _exit() -> void:
+	var branch = get_parent()
+	branch.initial_state = branch.fall_state
 	host.gravity.y = host.fall_gravity
 
 func _update(delta: float) -> void:
-	
-	if surface_hit():
-		dispatch("end jump")
-	
 	soul.move_and_slide()
 
 func jump():
 	soul.velocity.y = host.jump_velocity
 	host.jump_counter += 1
 	await get_tree().create_timer(host.jump_peak_time).timeout
-	dispatch("end jump")
+	dispatch(&"end jump")
 
 func surface_hit() -> bool:
 	if soul.is_on_floor():
 		return true
-	if soul.is_on_wall:
+	if soul.is_on_wall():
 		return true
 	else:
 		return false

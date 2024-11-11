@@ -21,7 +21,7 @@ var fall_gravity: float
 
 ## Dependency Variables
 var is_coyote : bool = false
-var host : MoveBranch
+var host : MovementTree
 var soul: Soul
 
 func _ready() -> void:
