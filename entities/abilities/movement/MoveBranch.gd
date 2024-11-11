@@ -1,11 +1,11 @@
-class_name MoveBranch
+class_name MoveHSM
 extends LimboHSM
 
-@export var x_mod: float = 1
+
 @export_group("Movement Stats")
 @export var accel_time : float = 0.25
 @export var decel_rate : float = 0.9
-@export var jumps: int = 3
+@export var jumps: int = 2
 @export var jump_height: float = 25.0
 @export var jump_peak_time: float = 0.4
 @export var jump_fall_time: float = 0.3

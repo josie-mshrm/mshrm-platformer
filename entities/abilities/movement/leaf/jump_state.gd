@@ -10,11 +10,14 @@ func _enter() -> void:
 	jump()
 
 func _exit() -> void:
-	var branch = get_parent()
-	branch.initial_state = branch.fall_state
 	host.gravity.y = host.fall_gravity
 
 func _update(delta: float) -> void:
+	host.move_character_x(delta, x_mod)
+	
+	if surface_hit():
+		dispatch(&"end jump")
+	
 	soul.move_and_slide()
 
 func jump():

@@ -7,7 +7,7 @@ signal player_input_action(action: StringName)
 var input_direction : Vector2 = Vector2.ZERO
 var valid_actions : Dictionary
 
-@onready var movement_tree: MoveBranch = $MovementTree
+@onready var movement_tree: MoveHSM = $MovementTree
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:

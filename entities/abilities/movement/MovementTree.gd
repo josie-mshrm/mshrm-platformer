@@ -1,10 +1,11 @@
 class_name MovementTree
-extends MoveBranch
+extends MoveHSM
 
-@onready var ground_branch: GroundBranch = $GroundBranch
-@onready var air_branch: AirBranch = $AirBranch
+@onready var idle_state: IdleState = $IdleState
+@onready var run_state: RunState = $RunState
+@onready var fall_state: FallState = $FallState
+@onready var jump_state: JumpState = $JumpState
 
-@onready var label: Label = $"../Label"
 
 func _ready() -> void:
 	soul = $".."
@@ -17,40 +18,29 @@ func _ready() -> void:
 	accel = soul.speed / accel_time
 	
 	for child in get_children():
-		if child is MoveBranch:
+		if child is MoveState:
 			child.soul = soul
 			child.host = self
-			child.active_state_changed.connect(child_state_changed)
-		
+	
 
 func _setup() -> void:
-	add_transition(ANYSTATE, ground_branch, &"ground")
-	add_transition(ANYSTATE, air_branch, &"air")
+	initial_state = idle_state
+	
+	add_transition(run_state, idle_state, &"idle")
+	add_transition(ANYSTATE, run_state, &"run")
+	add_transition(ANYSTATE, jump_state, &"jump")
+	add_transition(ANYSTATE, fall_state, &"fall")
+	
+	add_transition(jump_state, fall_state, &"end jump")
 
 func _update(delta: float) -> void:
 	## Apply gravity
 	soul.velocity.y += gravity.y * delta
+	
+	if soul.is_on_floor_only() and soul.input_direction.x == 0:
+		dispatch(&"idle")
 
 ## Function for changing state based on player inputs
 func on_player_input(action: StringName):
 	if action == "jump":
-		air_enter_jump()
-
-
-func child_state_changed(state, last_state):
-	print(state.name)
-	label.text = state.name
-
-
-func ground_enter_idle():
-	ground_branch.initial_state = ground_branch.idle_state
-	dispatch(&"ground")
-
-func ground_enter_run():
-	ground_branch.initial_state = ground_branch.run_state
-	dispatch(&"ground")
-
-func air_enter_jump():
-	if air_branch.initial_state != air_branch.jump_state:
-		air_branch.initial_state = air_branch.jump_state
-	dispatch(&"air")
+		dispatch(&"jump")

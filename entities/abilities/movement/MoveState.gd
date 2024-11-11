@@ -1,11 +1,9 @@
 class_name MoveState
 extends LimboState
 
-
-
+@export var x_mod : float = 1
 var soul : Soul
-
-var host: MoveBranch
+var host: MoveHSM
 
 func _setup() -> void:
 	host = get_root()

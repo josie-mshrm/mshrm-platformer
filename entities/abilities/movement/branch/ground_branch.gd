@@ -1,5 +1,5 @@
 class_name GroundBranch
-extends MoveBranch
+extends MoveHSM
 
 @onready var idle_state: IdleState = $IdleState
 @onready var run_state: RunState = $RunState

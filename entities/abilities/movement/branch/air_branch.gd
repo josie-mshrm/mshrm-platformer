@@ -1,5 +1,5 @@
 class_name AirBranch
-extends MoveBranch
+extends MoveHSM
 
 
 @onready var fall_state: FallState = $FallState
