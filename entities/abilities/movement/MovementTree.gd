@@ -10,21 +10,20 @@ func _ready() -> void:
 	
 	soul.player_input_action.connect(on_player_input)
 	
+	calc_jump_var()
 	gravity.y = fall_gravity
 	max_velocity = soul.speed
-	
 	accel = soul.speed / accel_time
-	
-	calc_jump_var()
+
 	
 	for child in get_children():
 		child.soul = soul
 		child.host = self
 
 func _setup() -> void:
-	add_transition(ground_branch, air_branch, "jumped")
-	add_transition(ground_branch, air_branch, "fell")
-	add_transition(ANYSTATE, ground_branch, "landed")
+	add_transition(ground_branch, air_branch, &"jump")
+	add_transition(ground_branch, air_branch, &"fall")
+	add_transition(ANYSTATE, ground_branch, &"ground")
 
 func _update(delta: float) -> void:
 	## Apply gravity
@@ -34,7 +33,9 @@ func _update(delta: float) -> void:
 func on_player_input(action: StringName):
 	
 	if action == "jump":
-		dispatch("jumped")
-	
-	var state = get_leaf_state()
-	print(state)
+		dispatch(&"jump")
+
+
+func ground_enter_idle():
+	ground_branch.initial_state = ground_branch.idle_state
+	dispatch(&"ground")

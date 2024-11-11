@@ -11,6 +11,5 @@ func _exit() -> void:
 	pass
 
 func _update(delta: float) -> void:
-	host.move_character_x(delta, x_mod)
 	
 	soul.move_and_slide()

@@ -4,3 +4,4 @@
 
 [node name="WalljumpState" type="LimboState"]
 script = ExtResource("1_062bv")
+x_mod = null

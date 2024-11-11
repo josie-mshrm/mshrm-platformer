@@ -19,6 +19,6 @@ script = ExtResource("1_yirm8")
 
 [node name="AirBranch" parent="." instance=ExtResource("5_ooa6r")]
 
-[node name="JumpState" parent="AirBranch" instance=ExtResource("6_bd8ah")]
-
 [node name="FallState" parent="AirBranch" instance=ExtResource("7_7pgtk")]
+
+[node name="JumpState" parent="AirBranch" instance=ExtResource("6_bd8ah")]
