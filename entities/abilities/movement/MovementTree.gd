@@ -3,13 +3,14 @@ extends MoveBranch
 
 @export_group("Movement Stats")
 @export var accel_time : float = 0.25
-@export var decel_rate : float = 0.9
-@export var jumps: int = 2
+@export var decel_rate : float = 0.97
+@export var jumps: int = 3
 @export var jump_height: float = 25.0
 @export var jump_peak_time: float = 0.4
 @export var jump_fall_time: float = 0.3
 @export var min_jump_time: float = 0.15
-@export var coyote_time: float = 0.2
+@export var coyote_time: float = 0.25
+@export var buffer_time: float = 0.15
 
 var gravity : Vector2
 var max_velocity : int
@@ -18,8 +19,13 @@ var jump_counter: int = 0
 var jump_velocity: float
 var jump_gravity: float
 var fall_gravity: float
+
 var is_coyote : bool = false
-var state : MoveState
+var state : MoveState = null
+var last_state : MoveState = null
+
+var input_buffer : Dictionary = {&"jump" : null}
+var buffer_active : bool = false
 
 
 @onready var ground_branch: GroundBranch = $GroundBranch
@@ -44,7 +50,7 @@ func _ready() -> void:
 
 func _setup() -> void:
 	
-	add_transition(ANYSTATE, air_branch, &"jump")
+	add_transition(ANYSTATE, air_branch, &"air")
 	add_transition(air_branch, ground_branch, &"ground")
 	add_transition(ground_branch, air_branch, &"fall")
 
@@ -57,10 +63,17 @@ func _update(delta: float) -> void:
 
 
 ## Function for changing state based on player inputs
-func on_player_input(action: StringName):
-	if action == "jump":
-		air_branch.jump_flag = true
-		dispatch(&"jump")
+func on_player_input(action: StringName, event : InputEvent):
+	if action == &"jump":
+		var state = get_tree_state()
+		
+		if state == air_branch.jump_state:
+			buffer_input(action, event)
+		if state == air_branch.fall_state:
+			dispatch(&"jump")
+		else:
+			air_branch.jump_flag = true
+			dispatch(&"air")
 
 
 ## Function for moving the character on the x axis based on player input, including a modifier for the speed of movement
@@ -68,9 +81,9 @@ func move_character_x(delta: float, state_mod: float):
 	# if there is an input being pressed
 	if soul.input_direction.x != 0: 
 		if absf(soul.velocity.x) < max_velocity:
-			soul.velocity.x += accel * delta * soul.input_direction.x * state_mod
+			soul.velocity.x += accel * delta * sign(soul.input_direction.x) * state_mod
 		else:
-			soul.velocity.x = soul.speed * soul.input_direction.x * state_mod
+			soul.velocity.x = soul.speed * sign(soul.input_direction.x) * state_mod
 	
 	# if there is no input
 	else: 
@@ -85,5 +98,17 @@ func calc_jump_var():
 	fall_gravity = ((-2.0 * jump_height) / (jump_fall_time * jump_fall_time)) * -10.0
 
 func get_tree_state() -> MoveState:
-	var state = get_leaf_state()
+	last_state = state
+	state = get_leaf_state()
 	return state
+
+func buffer_input(action: StringName, event: InputEvent):
+	#if something is already in the buffer, clear it first
+	if buffer_active:
+		input_buffer[action] = false
+	
+	buffer_active = true
+	input_buffer[action] = event
+	await get_tree().create_timer(buffer_time, true, true, false).timeout
+	input_buffer[action] = false
+	buffer_active = false

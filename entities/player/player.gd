@@ -2,7 +2,7 @@ class_name Player
 extends Soul
 
 ## Signal for actions that respond to the player's input
-signal player_input_action(action: StringName)
+signal player_input_action(action: StringName, event : InputEvent)
 
 var input_direction : Vector2 = Vector2.ZERO
 var valid_actions : Dictionary
@@ -30,12 +30,12 @@ func _process(delta: float) -> void:
 
 ## Receives action from controller
 ## Sends action to state machine and emits signal for other nodes
-func on_recieve_action(control_action : StringName, _event : InputEvent):
+func on_recieve_action(control_action : StringName, event : InputEvent):
 	if valid_actions.is_empty():
 		valid_actions = self.action_list.ActionDict
 	
 	if valid_actions.has(control_action): # If the action is allowed by the character body
-		player_input_action.emit(control_action)
+		player_input_action.emit(control_action, event)
 	else:
 		printerr("invalid input")
 		printerr(control_action)

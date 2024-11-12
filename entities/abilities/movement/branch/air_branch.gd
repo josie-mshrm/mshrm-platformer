@@ -21,7 +21,6 @@ func _setup() -> void:
 func _enter() -> void:
 	if jump_flag == true:
 		initial_state = jump_state
-		jump_flag = false
 	else:
 		initial_state = fall_state
 

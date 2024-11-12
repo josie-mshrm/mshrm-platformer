@@ -11,10 +11,6 @@
 [node name="MovementTree" type="LimboHSM"]
 script = ExtResource("1_yirm8")
 accel_time = 0.3
-decel_rate = 0.97
-jump_height = 30.0
-jump_peak_time = 0.45
-jump_fall_time = 0.35
 
 [node name="GroundBranch" parent="." instance=ExtResource("2_7ihk6")]
 

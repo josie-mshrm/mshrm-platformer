@@ -7,6 +7,7 @@ func _setup() -> void:
 
 func _enter() -> void:
 	host.gravity.y = host.jump_gravity
+	host.air_branch.jump_flag = false
 	jump()
 
 func _exit() -> void:
@@ -18,7 +19,7 @@ func _update(delta: float) -> void:
 func jump():
 	soul.velocity.y = host.jump_velocity
 	host.jump_counter += 1
-	await get_tree().create_timer(host.jump_peak_time).timeout
+	await get_tree().create_timer(host.jump_peak_time, true, true, false).timeout
 	dispatch(&"end jump")
 
 func surface_hit() -> bool:
