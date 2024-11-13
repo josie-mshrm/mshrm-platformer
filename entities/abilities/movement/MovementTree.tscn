@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmfi7rml7drpt"]
+[gd_scene load_steps=10 format=3 uid="uid://cmfi7rml7drpt"]
 
 [ext_resource type="Script" path="res://entities/abilities/movement/MovementTree.gd" id="1_yirm8"]
 [ext_resource type="PackedScene" uid="uid://duyl76sc706qk" path="res://entities/abilities/movement/branch/ground_branch.tscn" id="2_7ihk6"]
@@ -7,10 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://6mwr5hgf6ldk" path="res://entities/abilities/movement/branch/air_branch.tscn" id="5_u8bv7"]
 [ext_resource type="PackedScene" uid="uid://cks5h065gwsgc" path="res://entities/abilities/movement/leaf/JumpState.tscn" id="6_bd8ah"]
 [ext_resource type="PackedScene" uid="uid://dmvr5piar72vt" path="res://entities/abilities/movement/leaf/FallState.tscn" id="7_7pgtk"]
+[ext_resource type="PackedScene" uid="uid://cmebbv2ris04h" path="res://entities/abilities/movement/branch/wall_branch.tscn" id="8_4xf8l"]
+[ext_resource type="PackedScene" uid="uid://c3nhr45sr8ys2" path="res://entities/abilities/movement/leaf/wall_state.tscn" id="9_btpaa"]
 
 [node name="MovementTree" type="LimboHSM"]
 script = ExtResource("1_yirm8")
 accel_time = 0.3
+decel_rate = 0.98
 
 [node name="GroundBranch" parent="." instance=ExtResource("2_7ihk6")]
 
@@ -25,3 +28,7 @@ x_mod = 1.15
 
 [node name="JumpState" parent="AirBranch" instance=ExtResource("6_bd8ah")]
 x_mod = 1.25
+
+[node name="WallBranch" parent="." instance=ExtResource("8_4xf8l")]
+
+[node name="WallState" parent="WallBranch" instance=ExtResource("9_btpaa")]

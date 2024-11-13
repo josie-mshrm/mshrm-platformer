@@ -20,16 +20,21 @@ var jump_velocity: float
 var jump_gravity: float
 var fall_gravity: float
 
+var is_jump : bool = false
 var is_coyote : bool = false
 var state : MoveState = null
 var last_state : MoveState = null
 
-var input_buffer : Dictionary = {&"jump" : null}
+var input_buffer : Dictionary = {
+	&"jump" : null,
+	&"wall jump" : null,
+	}
 var buffer_active : bool = false
 
 
 @onready var ground_branch: GroundBranch = $GroundBranch
 @onready var air_branch: AirBranch = $AirBranch
+@onready var wall_branch: WallBranch = $WallBranch
 
 
 func _ready() -> void:
@@ -53,6 +58,7 @@ func _setup() -> void:
 	add_transition(ANYSTATE, air_branch, &"air")
 	add_transition(air_branch, ground_branch, &"ground")
 	add_transition(ground_branch, air_branch, &"fall")
+	add_transition(air_branch, wall_branch, &"wall")
 
 
 func _update(delta: float) -> void:
@@ -72,7 +78,7 @@ func on_player_input(action: StringName, event : InputEvent):
 		if state == air_branch.fall_state:
 			dispatch(&"jump")
 		else:
-			air_branch.jump_flag = true
+			is_jump = true
 			dispatch(&"air")
 
 

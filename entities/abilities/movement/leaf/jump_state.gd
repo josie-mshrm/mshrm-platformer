@@ -7,7 +7,7 @@ func _setup() -> void:
 
 func _enter() -> void:
 	host.gravity.y = host.jump_gravity
-	host.air_branch.jump_flag = false
+	host.is_jump = false
 	jump()
 
 func _exit() -> void:

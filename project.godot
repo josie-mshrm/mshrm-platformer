@@ -24,6 +24,7 @@ Focus="res://system/controllers/focus.gd"
 
 window/size/viewport_width=3840
 window/size/viewport_height=2160
+window/size/mode=2
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/vsync/vsync_mode=0

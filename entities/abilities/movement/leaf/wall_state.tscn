@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3nhr45sr8ys2"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/leaf/wall_state.gd" id="1_xfiae"]
+
+[node name="WallState" type="LimboState"]
+script = ExtResource("1_xfiae")

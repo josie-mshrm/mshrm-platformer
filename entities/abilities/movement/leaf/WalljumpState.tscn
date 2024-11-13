@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cy3lgs3e8soi"]
-
-[ext_resource type="Script" path="res://entities/abilities/movement/leaf/walljump_state.gd" id="1_062bv"]
-
-[node name="WalljumpState" type="LimboState"]
-script = ExtResource("1_062bv")
