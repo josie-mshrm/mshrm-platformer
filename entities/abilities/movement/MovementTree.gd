@@ -26,8 +26,7 @@ var state : MoveState = null
 var last_state : MoveState = null
 
 var input_buffer : Dictionary = {
-	&"jump" : null,
-	&"wall jump" : null,
+	&"jump" : false, 
 	}
 var buffer_active : bool = false
 
@@ -55,10 +54,10 @@ func _ready() -> void:
 
 func _setup() -> void:
 	
+	add_transition(ANYSTATE, ground_branch, &"ground")
 	add_transition(ANYSTATE, air_branch, &"air")
-	add_transition(air_branch, ground_branch, &"ground")
+	add_transition(ANYSTATE, wall_branch, &"wall")
 	add_transition(ground_branch, air_branch, &"fall")
-	add_transition(air_branch, wall_branch, &"wall")
 
 
 func _update(delta: float) -> void:
@@ -70,17 +69,22 @@ func _update(delta: float) -> void:
 
 ## Function for changing state based on player inputs
 func on_player_input(action: StringName, event : InputEvent):
+	
 	if action == &"jump":
-		var state = get_tree_state()
 		
-		if state == air_branch.jump_state:
-			buffer_input(action, event)
-		if state == air_branch.fall_state:
-			dispatch(&"jump")
-		else:
+		if air_branch.is_active():
+			if dispatch(&"jump"):
+				pass
+			else:
+				buffer_input(action, event)
+		elif wall_branch.is_active():
+			if dispatch(&"wall jump"):
+				pass
+			else:
+				buffer_input(action, event)
+		elif ground_branch.is_active():
 			is_jump = true
 			dispatch(&"air")
-
 
 ## Function for moving the character on the x axis based on player input, including a modifier for the speed of movement
 func move_character_x(delta: float, state_mod: float):
@@ -98,23 +102,44 @@ func move_character_x(delta: float, state_mod: float):
 		else:
 			soul.velocity.x -= decel_rate * accel * sign(soul.velocity.x) * delta * state_mod
 
+
 func calc_jump_var():
 	jump_velocity = ((2.0 * jump_height) / jump_peak_time) * -10.0
 	jump_gravity = ((-2.0 * jump_height) / (jump_peak_time * jump_peak_time)) * -10.0
 	fall_gravity = ((-2.0 * jump_height) / (jump_fall_time * jump_fall_time)) * -10.0
+
 
 func get_tree_state() -> MoveState:
 	last_state = state
 	state = get_leaf_state()
 	return state
 
+
+## Checks whether the character is in a viable state to perform the jump
+func can_jump() -> bool:
+	if jump_counter >= jumps:
+		return false
+	else:
+		return true
+
 func buffer_input(action: StringName, event: InputEvent):
 	#if something is already in the buffer, clear it first
 	if buffer_active:
-		input_buffer[action] = false
+		input_buffer.erase(action)
 	
 	buffer_active = true
 	input_buffer[action] = event
 	await get_tree().create_timer(buffer_time, true, true, false).timeout
-	input_buffer[action] = false
+	input_buffer.erase(action)
 	buffer_active = false
+
+
+func check_buffer(action : StringName) -> bool:
+	if input_buffer.has(action):
+		var event = input_buffer[action]
+		
+		if event is InputEvent:
+			if Input.is_action_pressed(action):
+				input_buffer.erase(action)
+				return true
+	return false

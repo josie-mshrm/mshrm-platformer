@@ -4,7 +4,7 @@ extends Soul
 ## Signal for actions that respond to the player's input
 signal player_input_action(action: StringName, event : InputEvent)
 
-var input_direction : Vector2 = Vector2.ZERO
+
 var valid_actions : Dictionary
 
 @onready var movement_tree: MovementTree = $MovementTree
@@ -19,7 +19,7 @@ func _ready() -> void:
 	movement_tree.set_active(true)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if input_direction.x < 0:
 		animated_sprite_2d.flip_h = true
 	elif input_direction.x > 0:

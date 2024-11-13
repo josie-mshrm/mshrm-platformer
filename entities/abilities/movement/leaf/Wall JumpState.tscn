@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtqgael5orcu2"]
+
+[ext_resource type="Script" path="res://entities/abilities/movement/leaf/wall_jump_state.gd" id="1_t7oh8"]
+
+[node name="Wall JumpState" type="LimboState"]
+script = ExtResource("1_t7oh8")

@@ -16,7 +16,7 @@ func _ready():
 	action_dict = player_node.action_list.ActionDict
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	ctrl_get_direction()
 	ctrl_send_movement.emit(ctrl_move_dir)
 

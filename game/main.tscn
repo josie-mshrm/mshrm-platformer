@@ -18,13 +18,13 @@ player_node = NodePath("Player")
 input_controller = NodePath("../../InputController")
 
 [node name="Player" parent="Level1/PlayerController" node_paths=PackedStringArray("control_node") instance=ExtResource("2_phk5y")]
-position = Vector2(128, -967)
+position = Vector2(-6032, -1491)
 scale = Vector2(1, 1)
 control_node = NodePath("..")
 speed = 800
 
 [node name="Camera2D" type="Camera2D" parent="Level1/PlayerController/Player"]
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(1.2, 1.2)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0

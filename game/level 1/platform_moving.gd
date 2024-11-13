@@ -10,7 +10,7 @@ var is_moving : bool = false
 func _ready() -> void:
 	set_force()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_moving:
 		apply_central_force(force)
 

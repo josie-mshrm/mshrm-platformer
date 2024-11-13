@@ -19,14 +19,16 @@ func _setup() -> void:
 func _enter() -> void:
 	if host.is_jump == true:
 		initial_state = jump_state
+		host.is_jump = false
 	else:
 		initial_state = fall_state
 
 
+func _exit() -> void:
+	pass
+
 func _update(delta: float) -> void:
-	
-	if soul.is_on_floor_only():
-		dispatch(&"ground")
+	pass
 
 
 func start_coyote_timer():

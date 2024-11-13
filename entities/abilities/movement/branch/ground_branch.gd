@@ -23,12 +23,22 @@ func _enter() -> void:
 		initial_state = run_state
 	else:
 		initial_state = idle_state
+	
+	call_deferred("check_on_enter")
 
-func _update(delta: float) -> void:
+
+func _update(_delta: float) -> void:
 	
 	#if the soul was on ground, and is now falling
 	if not soul.is_on_floor() and soul.velocity.y > 0:
 		dispatch(&"fall")
+
+func check_on_enter():
+	if host.buffer_active:
+		if host.check_buffer(&"jump"):
+			host.is_jump = true
+			dispatch(&"air")
+
 
 func floor_check() -> bool:
 	if soul.is_on_floor():

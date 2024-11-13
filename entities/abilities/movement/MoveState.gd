@@ -16,12 +16,3 @@ func _exit() -> void:
 
 func _update(delta: float) -> void:
 	pass
-
-func check_buffer(action : StringName) -> bool:
-	var event = host.input_buffer[action]
-	
-	if event is InputEvent:
-		if event.is_action(action) and Input.is_action_pressed(action):
-			host.input_buffer.clear()
-			return true
-	return false
