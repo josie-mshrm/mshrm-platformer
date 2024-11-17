@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://game/level_reset.tscn" id="2_8vn6c"]
 [ext_resource type="PackedScene" uid="uid://cxnhpbsdvfmtn" path="res://game/level 1/platform_moving.tscn" id="3_v03i5"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fjis2"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gsbgc"]
 resource_name = "trial"
 texture = ExtResource("1_3t6gm")
 texture_region_size = Vector2i(64, 64)
@@ -25,7 +25,7 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 87
-sources/0 = SubResource("TileSetAtlasSource_fjis2")
+sources/0 = SubResource("TileSetAtlasSource_gsbgc")
 
 [node name="Level1" type="Node2D"]
 

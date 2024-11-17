@@ -11,8 +11,13 @@ extends MoveBranch
 @export var min_jump_time: float = 0.15
 @export var coyote_time: float = 0.25
 @export var buffer_time: float = 0.15
+@export var wall_slide_speed: int = 200
+## The wall kick angle in degrees, 0 degrees is straight up
+@export var wall_kick_angle: int = 30
+@export var wall_kick_force: int = 400
 
 var gravity : Vector2
+var gravity_mod : float = 1
 var max_velocity : int
 var accel : float
 var jump_counter: int = 0
@@ -62,7 +67,7 @@ func _setup() -> void:
 
 func _update(delta: float) -> void:
 	## Apply gravity
-	soul.velocity.y += gravity.y * delta
+	soul.velocity.y += gravity.y * delta * gravity_mod
 	
 	soul.move_and_slide()
 
@@ -78,7 +83,7 @@ func on_player_input(action: StringName, event : InputEvent):
 			else:
 				buffer_input(action, event)
 		elif wall_branch.is_active():
-			if dispatch(&"wall jump"):
+			if dispatch(&"wall kick"):
 				pass
 			else:
 				buffer_input(action, event)
