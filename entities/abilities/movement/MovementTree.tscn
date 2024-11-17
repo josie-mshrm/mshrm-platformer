@@ -16,7 +16,7 @@ script = ExtResource("1_yirm8")
 accel_time = 0.15
 decel_rate = 0.98
 jumps = 1
-wall_kick_angle = 25
+wall_kick_angle = 32
 wall_kick_force = 1200
 
 [node name="GroundBranch" parent="." instance=ExtResource("2_7ihk6")]
@@ -28,10 +28,10 @@ wall_kick_force = 1200
 [node name="AirBranch" parent="." instance=ExtResource("5_u8bv7")]
 
 [node name="FallState" parent="AirBranch" instance=ExtResource("7_7pgtk")]
-x_mod = 1.15
+x_mod = 0.8
 
 [node name="JumpState" parent="AirBranch" instance=ExtResource("6_bd8ah")]
-x_mod = 1.15
+x_mod = 0.9
 
 [node name="WallBranch" parent="." instance=ExtResource("8_4xf8l")]
 

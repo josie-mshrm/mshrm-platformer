@@ -38,6 +38,8 @@ func get_wall_direction():
 	
 
 func check_wall_direction(cargo = null) -> bool:
+	if not soul.is_on_wall():
+		return false
 	if wall_direction == Vector2.ZERO:
 		get_wall_direction()
 	if sign(soul.input_direction.x) != sign(wall_direction.x):
