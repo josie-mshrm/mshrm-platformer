@@ -18,13 +18,14 @@ func _update(delta: float) -> void:
 
 func limit_wall_slide_speed():
 	if soul.velocity.y >= host.wall_slide_speed:
-		soul.velocity.y -= 100
+		soul.velocity.y -= 100 ## TODO change this to limit and slow
 
 
 func wall_check_buffer():
 	if host.buffer_active:
 		if host.check_buffer(&"jump"):
 			if soul.is_on_wall_only():
+				host.wall_branch.get_wall_direction()
 				dispatch(&"wall kick")
 			elif host.can_jump():
 				host.is_jump = true
