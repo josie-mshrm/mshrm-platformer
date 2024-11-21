@@ -15,9 +15,10 @@
 script = ExtResource("1_yirm8")
 accel_time = 0.15
 decel_rate = 0.98
-jumps = 1
-wall_kick_angle = 32
-wall_kick_force = 1200
+jumps = 2
+jump_height = 35.0
+wall_kick_angle = 34
+wall_kick_force = 2400
 
 [node name="GroundBranch" parent="." instance=ExtResource("2_7ihk6")]
 

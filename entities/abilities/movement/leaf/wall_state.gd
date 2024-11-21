@@ -18,7 +18,7 @@ func _update(delta: float) -> void:
 
 func limit_wall_slide_speed():
 	if soul.velocity.y >= host.wall_slide_speed:
-		soul.velocity.y -= 100 ## TODO change this to limit and slow
+		soul.velocity.y -= 200 ## TODO change this to limit and slow
 
 
 func wall_check_buffer():
