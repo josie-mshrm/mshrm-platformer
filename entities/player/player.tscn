@@ -35,6 +35,7 @@ metadata/_edit_lock_ = true
 soul = NodePath("..")
 
 [node name="MovementTree" parent="." instance=ExtResource("5_a64yo")]
+decel_rate = 0.65
 
 [node name="Label" type="Label" parent="."]
 layout_direction = 1

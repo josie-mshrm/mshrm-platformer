@@ -102,10 +102,19 @@ func move_character_x(delta: float, state_mod: float):
 	
 	# if there is no input
 	else: 
-		if absf(soul.velocity.x) <= 30:
-			soul.velocity.x = 0
+		var abs_velocity : float = absf(soul.velocity.x)
+		# if the velocity is less than 15% of the max velocity
+		if abs_velocity <= max_velocity * 0.15:
+			if abs_velocity < 20:
+				soul.velocity.x = 0
+			else:
+				var sign_velocity : int = sign(soul.velocity.x)
+				if sign_velocity == 1:
+					soul.velocity.x -= 10
+				elif sign_velocity == -1:
+					soul.velocity.x += 10
 		else:
-			soul.velocity.x -= decel_rate * accel * sign(soul.velocity.x) * delta * state_mod
+			soul.velocity.x *= decel_rate
 
 
 func calc_jump_var():

@@ -11,6 +11,8 @@ var valid_actions : Dictionary
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var label: Label = $Label
 
+
+
 func _ready() -> void:
 	action_list.set_action_dict()
 	
@@ -20,10 +22,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if velocity.x < 0:
-		animated_sprite_2d.flip_h = true
-	elif velocity.x > 0:
-		animated_sprite_2d.flip_h = false
+	temp_flip_animation()
 	
 	label.text = movement_tree.get_tree_state().name
 
@@ -43,3 +42,11 @@ func on_recieve_action(control_action : StringName, event : InputEvent):
 
 func on_recieve_movement(direction: Vector2):
 	input_direction = direction
+
+func temp_flip_animation():
+	if velocity.x == 0:
+		pass
+	elif velocity.x > 0:
+		animated_sprite_2d.flip_h = false
+	elif velocity.x < 0:
+		animated_sprite_2d.flip_h = true

@@ -1,6 +1,5 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://bh4o88f10nirm"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://bh4o88f10nirm"]
 
-[ext_resource type="Texture2D" uid="uid://qynhoar0emi7" path="res://game/tileset trial.svg" id="1_pryad"]
 [ext_resource type="Texture2D" uid="uid://cws4tgl38ort3" path="res://game/tileset trial v1.1.png" id="2_tp18u"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_1y2v6"]
@@ -9,30 +8,8 @@ tile_data = PackedInt32Array(0, 65537, 0, 1, 65537, 65536, 2, 65537, 0, 3, 65537
 [sub_resource type="TileMapPattern" id="TileMapPattern_w2lpc"]
 tile_data = PackedInt32Array(0, 1, 1, 65536, 1, 1, 131072, 1, 1, 196608, 131073, 65536, 1, 1, 1, 65537, 1, 1, 131073, 131073, 65536, 196609, 131073, 65536, 2, 1, 1, 65538, 131073, 65536, 131074, 131073, 65536, 196610, 131073, 65536, 3, 1, 1, 65539, 1, 1, 131075, 131073, 65536, 196611, 131073, 65536, 4, 1, 1, 65540, 1, 1, 131076, 1, 1, 196612, 131073, 65536, 5, 1, 1, 65541, 1, 1, 131077, 131073, 65536, 196613, 131073, 65536, 6, 1, 1, 65542, 131073, 65536, 131078, 131073, 65536, 196614, 131073, 65536, 7, 1, 1, 65543, 1, 1, 131079, 131073, 65536, 196615, 131073, 65536, 8, 1, 1, 65544, 1, 1, 131080, 1, 1, 196616, 131073, 65536, 9, 1, 1, 65545, 1, 1, 131081, 131073, 65536, 196617, 131073, 65536, 10, 1, 1, 65546, 131073, 65536, 131082, 131073, 65536, 196618, 131073, 65536, 11, 1, 1, 65547, 1, 1, 131083, 131073, 65536, 196619, 131073, 65536)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gsbgc"]
-resource_name = "trial"
-texture = ExtResource("1_pryad")
-texture_region_size = Vector2i(64, 64)
-0:0/next_alternative_id = 5
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/1 = 1
-0:0/1/transpose = true
-0:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/2 = 2
-0:0/2/flip_h = true
-0:0/2/transpose = true
-0:0/2/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:0/3 = 3
-0:0/3/flip_v = true
-0:0/4 = 4
-1:0/next_alternative_id = 3
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-1:0/1 = 1
-1:0/1/modulate = Color(0.0625128, 0.0625103, 0.389093, 1)
-1:0/2 = 2
-1:0/2/modulate = Color(0, 1, 0.85, 1)
+[sub_resource type="TileMapPattern" id="TileMapPattern_y37im"]
+tile_data = PackedInt32Array(0, 131073, 0, 262144, 131073, 0, 1, 131073, 0, 262145, 131073, 0)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2o42p"]
 texture = ExtResource("2_tp18u")
@@ -129,7 +106,7 @@ texture_region_size = Vector2i(256, 256)
 tile_size = Vector2i(256, 256)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 87
-sources/0 = SubResource("TileSetAtlasSource_gsbgc")
 sources/1 = SubResource("TileSetAtlasSource_2o42p")
 pattern_0 = SubResource("TileMapPattern_1y2v6")
 pattern_1 = SubResource("TileMapPattern_w2lpc")
+pattern_2 = SubResource("TileMapPattern_y37im")
