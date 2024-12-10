@@ -3,7 +3,7 @@ extends MoveBranch
 
 @export_group("Movement Stats")
 @export var accel_time : float = 0.25
-@export var decel_rate : float = 0.97
+@export var decel_rate : float = 0.65
 @export var jumps: int = 3
 @export var jump_height: float = 25.0
 @export var jump_peak_time: float = 0.4
@@ -14,7 +14,7 @@ extends MoveBranch
 @export var wall_slide_speed: int = 200
 ## The wall kick angle in degrees, 0 degrees is straight up
 @export var wall_kick_angle: int = 30
-@export var wall_kick_force: int = 400
+@export var wall_kick_force: int = 1200
 
 var gravity : Vector2
 var gravity_mod : float = 1

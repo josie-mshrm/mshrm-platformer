@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://bwt40b3p1k7rv"]
+[gd_scene load_steps=8 format=4 uid="uid://bwt40b3p1k7rv"]
 
 [ext_resource type="Script" path="res://game/level_2.gd" id="1_jdy5o"]
 [ext_resource type="TileSet" uid="uid://bh4o88f10nirm" path="res://game/tile set basic.tres" id="2_ppvub"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://game/level_reset.tscn" id="3_n227d"]
 [ext_resource type="PackedScene" uid="uid://5iclcc2smej6" path="res://entities/player/player.tscn" id="4_6h4ft"]
 [ext_resource type="PackedScene" uid="uid://c471ex58pncnh" path="res://system/controllers/player_controller.tscn" id="6_pvm08"]
+[ext_resource type="PackedScene" uid="uid://cxnhpbsdvfmtn" path="res://game/level 1/platform_moving.tscn" id="7_lbokx"]
 
 [node name="level 2" type="Node2D"]
 script = ExtResource("1_jdy5o")
@@ -18,16 +19,17 @@ tile_set = ExtResource("2_ppvub")
 position = Vector2(0, 3250)
 
 [node name="Player" parent="." node_paths=PackedStringArray("control_node") instance=ExtResource("4_6h4ft")]
-position = Vector2(-139, -16)
+position = Vector2(-5452, 283)
 scale = Vector2(1.2, 1.2)
 control_node = NodePath("PlayerController")
+speed = 1000
+metadata/_edit_group_ = true
 
 [node name="MovementTree" parent="Player" index="3"]
-wall_kick_angle = 30
 wall_kick_force = 3000
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.75, 0.75)
+zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -38,5 +40,12 @@ input_controller = NodePath("../InputController")
 [node name="InputController" type="Node" parent="Player"]
 script = ExtResource("2_wbukj")
 set_input_as_handled = false
+
+[node name="PlatMoving" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
+position = Vector2(-6990, 251)
+target = NodePath("Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="PlatMoving"]
+position = Vector2(3297, 0)
 
 [editable path="Player"]

@@ -13,6 +13,7 @@ height = 146.207
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_mod")]
 collision_layer = 16
 collision_mask = 199
+platform_floor_layers = 3
 script = ExtResource("1_oppev")
 action_list = ExtResource("2_hbaqi")
 health_mod = NodePath("HealthModule")

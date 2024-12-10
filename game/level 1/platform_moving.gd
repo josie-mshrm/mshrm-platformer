@@ -1,41 +1,31 @@
-extends RigidBody2D
+class_name Platform
+extends AnimatableBody2D
 
-@export var distance : Vector2
-@export var time : float
-@export var reset: Marker2D
+@export var target : Marker2D
+#@export_enum("Looping", "On Enter", "Instant") var type
+enum MoveType {ENTER, LOOPING, INSTANT}
+@export var type : MoveType = MoveType.ENTER
+@export var time : float = 0.5
+@export var delay_time : float = 1.0
 
-var force : Vector2
-var is_moving : bool = false
+var init_position : Vector2
+
+@onready var collision: CollisionPolygon2D = $Collision
+@onready var area: Area2D = $Area
 
 func _ready() -> void:
-	set_force()
+	if type == MoveType.ENTER:
+		area.body_entered.connect(on_body_entered)
 
-func _physics_process(_delta: float) -> void:
-	if is_moving:
-		apply_central_force(force)
+func on_body_entered(body : Soul):
+	print("entered")
+	if body is Player:
+		move_platform()
 
-func _on_area_2d_body_entered(body: Player) -> void:
-	is_moving = true
-	set_force()
-	await get_tree().create_timer(time).timeout
-	launch_body(body)
-	end_movement()
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	launch_body(body)
-
-func set_force() -> Vector2:
-	force = ((distance/time)/time) * 10
-	return force
-
-func end_movement():
-	is_moving = false
-	self.freeze = true
-	force = Vector2.ZERO
-	await get_tree().create_timer(.1).timeout
-	self.position = reset.position
-	self.freeze = false
-
-func launch_body(soul: Soul):
-	if soul is Player:
-		soul.velocity += set_force()
+func move_platform():
+	init_position = self.global_position
+	var tween = create_tween()
+	tween.tween_property(self, "position", target.global_position, time)
+	tween.tween_interval(delay_time)
+	tween.tween_property(self, "position", init_position, time * 2)
+	
