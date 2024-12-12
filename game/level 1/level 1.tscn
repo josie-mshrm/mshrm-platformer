@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=4 uid="uid://bi3iqojbxicdm"]
+[gd_scene load_steps=5 format=4 uid="uid://bi3iqojbxicdm"]
 
-[ext_resource type="Texture2D" uid="uid://qynhoar0emi7" path="res://assets/tileset trial.svg" id="1_3t6gm"]
+[ext_resource type="Texture2D" uid="uid://qynhoar0emi7" path="res://assets/tilesets/tileset trial.svg" id="1_3t6gm"]
 [ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://game/util/level_reset.tscn" id="2_8vn6c"]
-[ext_resource type="PackedScene" uid="uid://cxnhpbsdvfmtn" path="res://game/level 1/platform_moving.tscn" id="3_v03i5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gsbgc"]
 resource_name = "trial"
@@ -35,9 +34,3 @@ tile_set = SubResource("TileSet_e2iwu")
 
 [node name="LevelReset" parent="." instance=ExtResource("2_8vn6c")]
 position = Vector2(0, 3000)
-
-[node name="PlatMoving" parent="." node_paths=PackedStringArray("reset") instance=ExtResource("3_v03i5")]
-distance = Vector2(-800, 0)
-reset = NodePath("reset")
-
-[node name="reset" type="Marker2D" parent="PlatMoving"]

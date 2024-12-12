@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://5iclcc2smej6"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_oppev"]
-[ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://system/resources/player_action_list.tres" id="2_hbaqi"]
+[ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://game/resources/player_action_list.tres" id="2_hbaqi"]
 [ext_resource type="SpriteFrames" uid="uid://brfsjyrtd0uoi" path="res://entities/player/player_animation.tres" id="2_wmoqf"]
 [ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://entities/modules/HealthModule.tscn" id="3_4nbfh"]
 [ext_resource type="PackedScene" uid="uid://cmfi7rml7drpt" path="res://entities/abilities/movement/MovementTree.tscn" id="5_a64yo"]
