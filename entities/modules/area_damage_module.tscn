@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bmp33ck8p1l12"]
 
-[ext_resource type="Script" path="res://modules/areadamage_module.gd" id="1_1h71i"]
+[ext_resource type="Script" path="res://entities/modules/areadamage_module.gd" id="1_1h71i"]
 
 [node name="AreaDamageModule" type="Area2D"]
 script = ExtResource("1_1h71i")

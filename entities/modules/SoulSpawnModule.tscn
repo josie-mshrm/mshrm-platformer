@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5wg252bwvxsx"]
 
-[ext_resource type="Script" path="res://modules/soul_spawn_module.gd" id="1_fwmu3"]
+[ext_resource type="Script" path="res://entities/modules/soul_spawn_module.gd" id="1_fwmu3"]
 
 [node name="SoulSpawnModule" type="Node2D"]
 script = ExtResource("1_fwmu3")

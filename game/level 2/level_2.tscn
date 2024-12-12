@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=4 uid="uid://bwt40b3p1k7rv"]
 
-[ext_resource type="Script" path="res://game/level_2.gd" id="1_jdy5o"]
+[ext_resource type="Script" path="res://game/level 2/level_2.gd" id="1_jdy5o"]
 [ext_resource type="TileSet" uid="uid://bh4o88f10nirm" path="res://game/tile set basic.tres" id="2_ppvub"]
 [ext_resource type="Script" path="res://addons/input_controller/input_controller.gd" id="2_wbukj"]
-[ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://game/level_reset.tscn" id="3_n227d"]
+[ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://game/util/level_reset.tscn" id="3_n227d"]
 [ext_resource type="PackedScene" uid="uid://5iclcc2smej6" path="res://entities/player/player.tscn" id="4_6h4ft"]
 [ext_resource type="PackedScene" uid="uid://c471ex58pncnh" path="res://system/controllers/player_controller.tscn" id="6_pvm08"]
 [ext_resource type="PackedScene" uid="uid://cxnhpbsdvfmtn" path="res://game/level 1/platform_moving.tscn" id="7_lbokx"]
@@ -19,14 +19,10 @@ tile_set = ExtResource("2_ppvub")
 position = Vector2(0, 3250)
 
 [node name="Player" parent="." node_paths=PackedStringArray("control_node") instance=ExtResource("4_6h4ft")]
-position = Vector2(-5452, 283)
+position = Vector2(-7297, -5402)
 scale = Vector2(1.2, 1.2)
 control_node = NodePath("PlayerController")
-speed = 1000
 metadata/_edit_group_ = true
-
-[node name="MovementTree" parent="Player" index="3"]
-wall_kick_force = 3000
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(0.5, 0.5)
@@ -42,10 +38,15 @@ script = ExtResource("2_wbukj")
 set_input_as_handled = false
 
 [node name="PlatMoving" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
-position = Vector2(-6990, 251)
+position = Vector2(-8633, -5434)
 target = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="PlatMoving"]
 position = Vector2(3297, 0)
 
-[editable path="Player"]
+[node name="PlatMoving2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
+position = Vector2(-10010, -5402)
+target = NodePath("Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="PlatMoving2"]
+position = Vector2(0, -1375)

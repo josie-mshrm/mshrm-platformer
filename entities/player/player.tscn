@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_oppev"]
 [ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://system/resources/player_action_list.tres" id="2_hbaqi"]
 [ext_resource type="SpriteFrames" uid="uid://brfsjyrtd0uoi" path="res://entities/player/player_animation.tres" id="2_wmoqf"]
-[ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://modules/HealthModule.tscn" id="3_4nbfh"]
+[ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://entities/modules/HealthModule.tscn" id="3_4nbfh"]
 [ext_resource type="PackedScene" uid="uid://cmfi7rml7drpt" path="res://entities/abilities/movement/MovementTree.tscn" id="5_a64yo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g35ie"]
@@ -18,7 +18,7 @@ script = ExtResource("1_oppev")
 action_list = ExtResource("2_hbaqi")
 health_mod = NodePath("HealthModule")
 max_health = 200
-speed = 800
+speed = 1200
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -102.529)
@@ -37,6 +37,7 @@ soul = NodePath("..")
 
 [node name="MovementTree" parent="." instance=ExtResource("5_a64yo")]
 decel_rate = 0.65
+wall_kick_force = 3000
 
 [node name="Label" type="Label" parent="."]
 layout_direction = 1

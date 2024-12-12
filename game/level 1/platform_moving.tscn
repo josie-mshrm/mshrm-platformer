@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxnhpbsdvfmtn"]
 
 [ext_resource type="Script" path="res://game/level 1/platform_moving.gd" id="1_1rnaj"]
-[ext_resource type="Texture2D" uid="uid://cws4tgl38ort3" path="res://game/tileset trial v1.1.png" id="2_mki3t"]
+[ext_resource type="Texture2D" uid="uid://cws4tgl38ort3" path="res://assets/tileset trial v1.1.png" id="2_mki3t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wpokh"]
 atlas = ExtResource("2_mki3t")
@@ -23,6 +23,8 @@ polygon = PackedVector2Array(1, -100, -491, -100, -508, -89, -511, -81, -511, -5
 texture = SubResource("AtlasTexture_wpokh")
 
 [node name="Area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 240
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
 position = Vector2(-1, -96)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://col6n8gb1475b"]
 
 [ext_resource type="Script" path="res://libraries/components/soul_basic.gd" id="1_ennmc"]
-[ext_resource type="PackedScene" uid="uid://c32giw1o6jci7" path="res://modules/HitboxModule.tscn" id="2_jxp80"]
-[ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://modules/HealthModule.tscn" id="4_nhh0i"]
+[ext_resource type="PackedScene" uid="uid://c32giw1o6jci7" path="res://entities/modules/HitboxModule.tscn" id="2_jxp80"]
+[ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://entities/modules/HealthModule.tscn" id="4_nhh0i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80t3b"]
 size = Vector2(5, 5)
