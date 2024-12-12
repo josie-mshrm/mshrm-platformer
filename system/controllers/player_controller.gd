@@ -1,6 +1,9 @@
 extends Controller
 class_name PlayerController
 
+## This signal tells the body being controlled what action to take
+signal ctrl_send_action(action : StringName, input : InputEvent)
+signal ctrl_send_movement(move_direction: Vector2)
 
 @export var player_node : Player
 @export var input_controller: InputController

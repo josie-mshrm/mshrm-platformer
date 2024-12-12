@@ -28,9 +28,9 @@ func on_body_entered(body : Soul):
 		area_cooldown(animation_time)
 		move_platform()
 
-func area_cooldown(time : float):
+func area_cooldown(area_time : float):
 	area.set_deferred("monitoring", false)
-	await get_tree().create_timer(time).timeout
+	await get_tree().create_timer(area_time).timeout
 	print("done")
 	area.set_deferred("monitoring", true)
 

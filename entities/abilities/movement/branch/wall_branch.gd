@@ -28,7 +28,7 @@ func _exit() -> void:
 	wall_direction = Vector2.ZERO
 
 
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	
 	get_wall_direction()
 	
@@ -43,7 +43,7 @@ func get_wall_direction():
 		wall_direction.x = 0
 	
 
-func check_wall_direction(cargo = null) -> bool:
+func check_wall_direction(_cargo = null) -> bool:
 	if not soul.is_on_wall():
 		return false
 	if sign(soul.input_direction.x) != sign(wall_direction.x):
