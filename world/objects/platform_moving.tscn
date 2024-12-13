@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxnhpbsdvfmtn"]
+[gd_scene load_steps=4 format=3 uid="uid://cxnhpbsdvfmtn"]
 
 [ext_resource type="Script" path="res://world/objects/platform_moving.gd" id="1_1rnaj"]
 [ext_resource type="Texture2D" uid="uid://cws4tgl38ort3" path="res://world/resources/tilesets/tileset trial v1.1.png" id="2_mki3t"]
@@ -7,10 +7,7 @@
 atlas = ExtResource("2_mki3t")
 region = Rect2(960, 371, 1025, 205)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2s08"]
-size = Vector2(984, 14)
-
-[node name="PlatMoving" type="AnimatableBody2D"]
+[node name="PlatMoving" type="AnimatableBody2D" groups=["platforms"]]
 collision_layer = 2
 collision_mask = 84
 script = ExtResource("1_1rnaj")
@@ -21,11 +18,3 @@ polygon = PackedVector2Array(1, -100, -491, -100, -508, -89, -511, -81, -511, -5
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_wpokh")
-
-[node name="Area" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 240
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
-position = Vector2(-1, -96)
-shape = SubResource("RectangleShape2D_c2s08")

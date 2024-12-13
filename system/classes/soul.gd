@@ -1,6 +1,8 @@
 class_name Soul
 extends CharacterBody2D
 
+signal platform_hit(platform: Platform)
+
 @export var control_node: Controller
 @export var action_list: ActionList
 
@@ -8,12 +10,22 @@ extends CharacterBody2D
 @export var max_health: int
 @export var speed: int
 
+@export var ray_down: RayCast2D
+
 var input_direction : Vector2 = Vector2.ZERO
 
 ## Connect to the controller's "send_action" signal
 func _enter_tree() -> void:
 	control_node.ctrl_send_action.connect(on_recieve_action)
 	control_node.ctrl_send_movement.connect(on_recieve_movement)
+
+
+func _physics_process(delta: float) -> void:
+	if ray_down.is_colliding():
+		var collider = ray_down.get_collider()
+		if collider is Platform:
+			platform_hit.emit(collider)
+
 
 ## Send the action from the controller to the appropriate node
 ## Currently this is just the state machine, but this can be used elsewhere to trigger

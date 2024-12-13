@@ -27,11 +27,11 @@ func _enter() -> void:
 func _exit() -> void:
 	pass
 
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	pass
 
 
 func start_coyote_timer():
 	host.is_coyote = true
-	await get_tree().create_timer(host.coyote_time).timeout
+	await get_tree().create_timer(host.coyote_time, true, true, false).timeout
 	host.is_coyote = false

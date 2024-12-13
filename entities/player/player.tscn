@@ -10,15 +10,16 @@
 radius = 19.1004
 height = 146.207
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_mod")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_mod", "ray_down")]
 collision_layer = 16
 collision_mask = 199
-platform_floor_layers = 3
+platform_floor_layers = 2
 script = ExtResource("1_oppev")
 action_list = ExtResource("2_hbaqi")
 health_mod = NodePath("HealthModule")
 max_health = 200
 speed = 1200
+ray_down = NodePath("RayDown")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -102.529)
@@ -38,6 +39,9 @@ soul = NodePath("..")
 [node name="MovementTree" parent="." instance=ExtResource("5_a64yo")]
 decel_rate = 0.65
 wall_kick_force = 3000
+
+[node name="RayDown" type="RayCast2D" parent="."]
+collision_mask = 2
 
 [node name="Label" type="Label" parent="."]
 layout_direction = 1

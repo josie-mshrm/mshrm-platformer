@@ -38,6 +38,10 @@ version_control/autoload_on_startup=true
 
 enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/input_controller/plugin.cfg", "res://addons/nklbdev.importality/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
 
+[global_group]
+
+platforms="group for platforms that affect movement"
+
 [input]
 
 move_up={
@@ -118,5 +122,6 @@ dash={
 
 [physics]
 
+common/physics_ticks_per_second=120
 2d/physics_engine="Rapier2D"
 common/physics_interpolation=true

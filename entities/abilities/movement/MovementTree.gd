@@ -41,10 +41,12 @@ var buffer_active : bool = false
 @onready var wall_branch: WallBranch = $WallBranch
 
 
+
 func _ready() -> void:
 	soul = $".."
 	
 	soul.player_input_action.connect(on_player_input)
+	soul.platform_hit.connect(on_platform_hit)
 	
 	calc_jump_var()
 	gravity.y = fall_gravity
@@ -55,6 +57,7 @@ func _ready() -> void:
 		if child is MoveBranch:
 			child.soul = soul
 			child.host = self
+	
 
 
 func _setup() -> void:
@@ -91,6 +94,7 @@ func on_player_input(action: StringName, event : InputEvent):
 			is_jump = true
 			dispatch(&"air")
 
+
 ## Function for moving the character on the x axis based on player input, including a modifier for the speed of movement
 func move_character_x(delta: float, state_mod: float):
 	# if there is an input being pressed
@@ -117,6 +121,13 @@ func move_character_x(delta: float, state_mod: float):
 			soul.velocity.x *= decel_rate
 
 
+func on_platform_hit(platform: Platform):
+	soul.ray_down.add_exception(platform)
+	platform.move_platform()
+	await get_tree().create_timer(platform.animation_time, true, true, false).timeout
+	soul.ray_down.remove_exception(platform)
+
+
 func calc_jump_var():
 	jump_velocity = ((2.0 * jump_height) / jump_peak_time) * -10.0
 	jump_gravity = ((-2.0 * jump_height) / (jump_peak_time * jump_peak_time)) * -10.0
@@ -135,6 +146,7 @@ func can_jump() -> bool:
 		return false
 	else:
 		return true
+
 
 func buffer_input(action: StringName, event: InputEvent):
 	#if something is already in the buffer, clear it first

@@ -14,5 +14,5 @@ func _enter() -> void:
 func _exit() -> void:
 	pass
 
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	pass
