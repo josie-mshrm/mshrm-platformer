@@ -22,7 +22,7 @@ func _exit() -> void:
 	pass
 
 ## Function for changing state based on player inputs
-func on_player_input(_action: StringName, _event: InputEvent):
+func on_player_input(action: StringName, event: InputEvent):
 	pass
 
 

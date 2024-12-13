@@ -13,7 +13,7 @@ func _enter() -> void:
 	
 	wall_jump()
 
-func _update(_delta: float) -> void:
+func _update(delta: float) -> void:
 	pass
 
 func wall_jump():
