@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://bi3iqojbxicdm"]
 
-[ext_resource type="Texture2D" uid="uid://qynhoar0emi7" path="res://assets/tilesets/tileset trial.svg" id="1_3t6gm"]
-[ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://game/util/level_reset.tscn" id="2_8vn6c"]
+[ext_resource type="Texture2D" uid="uid://qynhoar0emi7" path="res://world/resources/tilesets/tileset trial.svg" id="1_3t6gm"]
+[ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://world/util/level_reset.tscn" id="2_8vn6c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gsbgc"]
 resource_name = "trial"

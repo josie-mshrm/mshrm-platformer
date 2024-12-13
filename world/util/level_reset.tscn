@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://e3ywnyjbc60h"]
 
-[ext_resource type="Script" path="res://game/util/level_reset.gd" id="1_u6o5a"]
+[ext_resource type="Script" path="res://world/util/level_reset.gd" id="1_u6o5a"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bfsyv"]
 

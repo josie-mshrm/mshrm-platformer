@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cws4tgl38ort3"
-path="res://.godot/imported/tileset trial v1.1.png-ff7951c119f5f588f1256e8b52d95f27.ctex"
+uid="uid://qynhoar0emi7"
+path="res://.godot/imported/tileset trial.svg-4cd394904233f633f9f0c23ffc0e61bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/tileset trial v1.1.png"
-dest_files=["res://.godot/imported/tileset trial v1.1.png-ff7951c119f5f588f1256e8b52d95f27.ctex"]
+source_file="res://world/resources/tilesets/tileset trial.svg"
+dest_files=["res://.godot/imported/tileset trial.svg-4cd394904233f633f9f0c23ffc0e61bf.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
