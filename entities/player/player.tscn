@@ -4,11 +4,8 @@
 [ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://world/resources/player_action_list.tres" id="2_hbaqi"]
 [ext_resource type="SpriteFrames" uid="uid://brfsjyrtd0uoi" path="res://entities/player/player_animation.tres" id="2_wmoqf"]
 [ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://entities/modules/HealthModule.tscn" id="3_4nbfh"]
+[ext_resource type="Shape2D" uid="uid://cfmlyc2f5ua0j" path="res://entities/player/player_hitbox.tres" id="4_mj6ck"]
 [ext_resource type="PackedScene" uid="uid://cmfi7rml7drpt" path="res://entities/abilities/movement/MovementTree.tscn" id="5_a64yo"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g35ie"]
-radius = 19.1004
-height = 146.207
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_mod", "ray_down")]
 collision_layer = 16
@@ -28,10 +25,9 @@ sprite_frames = ExtResource("2_wmoqf")
 metadata/_edit_lock_ = true
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(9.16273, -73.1034)
+position = Vector2(2, -68)
 scale = Vector2(0.999999, 0.999999)
-shape = SubResource("CapsuleShape2D_g35ie")
-metadata/_edit_lock_ = true
+shape = ExtResource("4_mj6ck")
 
 [node name="HealthModule" parent="." node_paths=PackedStringArray("soul") instance=ExtResource("3_4nbfh")]
 soul = NodePath("..")
@@ -41,7 +37,9 @@ decel_rate = 0.65
 wall_kick_force = 3000
 
 [node name="RayDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 4)
 collision_mask = 2
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="."]
 layout_direction = 1
@@ -50,3 +48,4 @@ offset_top = -230.0
 offset_right = 85.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
+metadata/_edit_lock_ = true

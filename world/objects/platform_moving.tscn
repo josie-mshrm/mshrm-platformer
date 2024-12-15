@@ -18,3 +18,7 @@ polygon = PackedVector2Array(1, -100, -491, -100, -508, -89, -511, -81, -511, -5
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_wpokh")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

@@ -20,7 +20,8 @@ func _enter_tree() -> void:
 	control_node.ctrl_send_movement.connect(on_recieve_movement)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	#HACK why is this in the Soul class, i'm not sure
 	if ray_down.is_colliding():
 		var collider = ray_down.get_collider()
 		if collider is Platform:

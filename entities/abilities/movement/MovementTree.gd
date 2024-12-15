@@ -57,7 +57,6 @@ func _ready() -> void:
 		if child is MoveBranch:
 			child.soul = soul
 			child.host = self
-	
 
 
 func _setup() -> void:
@@ -79,7 +78,8 @@ func _update(delta: float) -> void:
 func on_player_input(action: StringName, event : InputEvent):
 	
 	if action == &"jump":
-		
+		## If the Air or Wall branches are active, dispatch the action
+		## If failed, buffer the input
 		if air_branch.is_active():
 			if dispatch(&"jump"):
 				pass
@@ -123,9 +123,11 @@ func move_character_x(delta: float, state_mod: float):
 
 func on_platform_hit(platform: Platform):
 	soul.ray_down.add_exception(platform)
+	
+	platform.remote_move_soul(soul)
+	
+	## move the platform
 	platform.move_platform()
-	await get_tree().create_timer(platform.animation_time, true, true, false).timeout
-	soul.ray_down.remove_exception(platform)
 
 
 func calc_jump_var():

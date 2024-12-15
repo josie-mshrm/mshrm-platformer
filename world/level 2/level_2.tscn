@@ -57,4 +57,4 @@ position = Vector2(-11316, -5402)
 target = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="PlatMoving3"]
-position = Vector2(5980, -1617)
+position = Vector2(1866, -1032)
