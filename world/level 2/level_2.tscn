@@ -19,7 +19,7 @@ tile_set = ExtResource("2_ppvub")
 position = Vector2(0, 3250)
 
 [node name="Player" parent="." node_paths=PackedStringArray("control_node") instance=ExtResource("4_6h4ft")]
-position = Vector2(-7297, -5402)
+position = Vector2(-9347, -5242)
 scale = Vector2(1.2, 1.2)
 control_node = NodePath("PlayerController")
 metadata/_edit_group_ = true

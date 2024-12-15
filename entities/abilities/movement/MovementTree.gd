@@ -17,7 +17,7 @@ extends MoveBranch
 @export var wall_kick_force: int = 1200
 
 var gravity : Vector2
-var gravity_mod : float = 1
+var gravity_mod : float = 1.0
 var max_velocity : int
 var accel : float
 var jump_counter: int = 0
@@ -70,6 +70,12 @@ func _setup() -> void:
 func _update(delta: float) -> void:
 	## Apply gravity
 	soul.velocity.y += gravity.y * delta * gravity_mod
+	
+	## moving platform detection
+	if soul.ray_down.is_colliding():
+		var collider = soul.ray_down.get_collider()
+		if collider is Platform:
+			soul.platform_hit.emit(collider)
 	
 	soul.move_and_slide()
 
@@ -124,10 +130,10 @@ func move_character_x(delta: float, state_mod: float):
 func on_platform_hit(platform: Platform):
 	soul.ray_down.add_exception(platform)
 	
-	platform.remote_move_soul(soul)
-	
 	## move the platform
 	platform.move_platform()
+	await platform.timer.timeout
+	soul.ray_down.remove_exception(platform)
 
 
 func calc_jump_var():

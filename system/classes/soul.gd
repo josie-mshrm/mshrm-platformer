@@ -20,14 +20,6 @@ func _enter_tree() -> void:
 	control_node.ctrl_send_movement.connect(on_recieve_movement)
 
 
-func _physics_process(_delta: float) -> void:
-	#HACK why is this in the Soul class, i'm not sure
-	if ray_down.is_colliding():
-		var collider = ray_down.get_collider()
-		if collider is Platform:
-			platform_hit.emit(collider)
-
-
 ## Send the action from the controller to the appropriate node
 ## Currently this is just the state machine, but this can be used elsewhere to trigger
 ## animations, sound effects, etc.
