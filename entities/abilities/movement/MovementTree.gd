@@ -133,6 +133,7 @@ func on_platform_hit(platform: Platform):
 	## move the platform
 	platform.move_platform()
 	await platform.timer.timeout
+	
 	soul.ray_down.remove_exception(platform)
 
 

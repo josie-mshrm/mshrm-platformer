@@ -14,6 +14,7 @@ signal platform_hit(platform: Platform)
 
 var input_direction : Vector2 = Vector2.ZERO
 
+
 ## Connect to the controller's "send_action" signal
 func _enter_tree() -> void:
 	control_node.ctrl_send_action.connect(on_recieve_action)
