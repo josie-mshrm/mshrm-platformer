@@ -84,6 +84,7 @@ func _update(delta: float) -> void:
 func on_player_input(action: StringName, event : InputEvent):
 	
 	if action == &"jump":
+
 		## If the Air or Wall branches are active, dispatch the action
 		## If failed, buffer the input
 		if air_branch.is_active():
@@ -132,9 +133,18 @@ func on_platform_hit(platform: Platform):
 	
 	## move the platform
 	platform.move_platform()
-	await platform.timer.timeout
 	
+	await platform.target_reached
+	print("target")
+	
+	while platform.current_state != platform.State.HOME:
+		print("loop")
+		await platform.target_reached
+	
+	print("done")
 	soul.ray_down.remove_exception(platform)
+	
+	
 
 
 func calc_jump_var():

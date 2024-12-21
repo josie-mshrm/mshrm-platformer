@@ -25,7 +25,7 @@ control_node = NodePath("PlayerController")
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.4, 0.4)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -39,22 +39,8 @@ script = ExtResource("2_wbukj")
 set_input_as_handled = false
 
 [node name="PlatMoving" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
-position = Vector2(-8633, -5434)
+position = Vector2(-10058, -5280)
 target = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="PlatMoving"]
-position = Vector2(3297, 0)
-
-[node name="PlatMoving2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
-position = Vector2(-10010, -5402)
-target = NodePath("Marker2D")
-
-[node name="Marker2D" type="Marker2D" parent="PlatMoving2"]
-position = Vector2(0, -1375)
-
-[node name="PlatMoving3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
-position = Vector2(-11316, -5402)
-target = NodePath("Marker2D")
-
-[node name="Marker2D" type="Marker2D" parent="PlatMoving3"]
-position = Vector2(1866, -1032)
+position = Vector2(1000, -1000)

@@ -22,4 +22,5 @@ func _update(delta: float) -> void:
 	#if the soul was on ground, and is now falling
 	if not soul.is_on_floor() and soul.velocity.y > 0:
 		host.air_branch.start_coyote_timer()
+		host.gravity_mod = 1.0
 		dispatch(&"fall")

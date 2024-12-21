@@ -1,60 +1,62 @@
 class_name Platform
 extends AnimatableBody2D
 
+## this signal is emitted when the platform reaches it's desired target
+signal target_reached(target)
+
 ## the target position
 @export var target : Marker2D
 ## the time taken to move from the init position to the target
 @export var time : float = 0.5
 ## the time the platform waits before returning to init position
 @export var delay_time : float = 1.0
+@export var ease : Tween.EaseType
+@export var trans : Tween.TransitionType
+@export var process : Tween.TweenProcessMode
 
 var init_position : Vector2
 var return_time : float
 var animation_time : float
+var current_state : State
+
+enum State {HOME, TARGET, MOVING}
 
 @onready var collision: CollisionPolygon2D = $Collision
-@onready var timer: Timer = $Timer
 
 
 func _ready() -> void:
 	init_position = self.global_position
 	
 	return_time = time * 2
-	animation_time = time + delay_time + return_time + 0.05 # add small buffer for smoothness
-	timer.wait_time = animation_time
+	animation_time = time + (2 * delay_time) + return_time
+	
+	current_state = State.HOME
 
 
 func move_platform():
 	var tween : Tween = create_tween()
-	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	tween.set_process_mode(process)
+	tween.set_ease(ease)
+	tween.set_trans(trans)
+	
 	
 	## Move the platform to the target
-	timer.start()
+	tween.tween_callback(set_state.bind(State.MOVING))
 	tween.tween_property(self, "position", target.global_position, time)
-	
+
 	## Wait at the target
+	tween.tween_callback(set_state.bind(State.TARGET))
+	tween.tween_callback(target_reached.emit)
 	tween.tween_interval(delay_time)
 	
 	## Return to init position
+	tween.tween_callback(set_state.bind(State.MOVING))
 	tween.tween_property(self, "position", init_position, return_time)
-
-
-func remote_move_soul(soul: Soul):
-	## add the transformer to the platform
-	var transformer : RemoteTransform2D = _init_transform2D()
-	transformer.global_position = soul.global_position
-	transformer.remote_path = transformer.get_path_to(soul)
 	
-	await timer.timeout
-	soul.ray_down.remove_exception(self)
-	transformer.queue_free()
+	## Wait at home
+	tween.tween_interval(delay_time)
+	tween.tween_callback(set_state.bind(State.HOME))
+	tween.tween_callback(target_reached.emit)
 
-
-func _init_transform2D() -> RemoteTransform2D:
-	var transformer = RemoteTransform2D.new()
-	transformer.name = &"transformer"
-	add_child(transformer)
-	transformer.update_position = true
-	transformer.update_rotation = false
-	transformer.update_scale = false
-	return transformer
+func set_state(state: State):
+	current_state = state
