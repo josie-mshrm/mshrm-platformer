@@ -8,7 +8,7 @@ signal platform_hit(platform: Platform)
 
 @export var health_mod: HealthModule
 @export var max_health: int
-@export var speed: int
+@export_range(0, 4) var speed: float
 
 @export var ray_down: RayCast2D
 

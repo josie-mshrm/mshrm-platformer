@@ -53,8 +53,8 @@ func _ready() -> void:
 	gravity = project_gravity * gravity_mod
 	
 	calc_jump_var()
-	max_velocity = soul.speed
-	accel = soul.speed / accel_time
+	max_velocity = (2 ** 11) * soul.speed
+	accel = max_velocity / accel_time
 	
 	for child in get_children():
 		if child is MoveBranch:
@@ -112,7 +112,7 @@ func move_character_x(delta: float, state_mod: float):
 		if absf(soul.velocity.x) < max_velocity:
 			soul.velocity.x += accel * delta * sign(soul.input_direction.x) * state_mod
 		else:
-			soul.velocity.x = soul.speed * sign(soul.input_direction.x) * state_mod
+			soul.velocity.x = max_velocity * sign(soul.input_direction.x) * state_mod
 	
 	# if there is no input
 	else: 
