@@ -17,7 +17,8 @@ extends MoveBranch
 @export var wall_kick_force: int = 1200
 
 var gravity : Vector2
-var gravity_mod : float = 1.0
+var project_gravity
+var gravity_mod : float = 1.3
 var max_velocity : int
 var accel : float
 var jump_counter: int = 0
@@ -48,8 +49,10 @@ func _ready() -> void:
 	soul.player_input_action.connect(on_player_input)
 	soul.platform_hit.connect(on_platform_hit)
 	
+	project_gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * ProjectSettings.get_setting("physics/2d/default_gravity_vector")
+	gravity = project_gravity * gravity_mod
+	
 	calc_jump_var()
-	gravity.y = fall_gravity
 	max_velocity = soul.speed
 	accel = soul.speed / accel_time
 	
@@ -69,9 +72,9 @@ func _setup() -> void:
 
 func _update(delta: float) -> void:
 	## Apply gravity
-	soul.velocity.y += gravity.y * delta * gravity_mod
+	soul.velocity += gravity * delta * gravity_mod
 	
-	## moving platform detection
+	## Moving platform detection
 	if soul.ray_down.is_colliding():
 		var collider = soul.ray_down.get_collider()
 		if collider is Platform:
@@ -85,8 +88,8 @@ func on_player_input(action: StringName, event : InputEvent):
 	
 	if action == &"jump":
 
-		## If the Air or Wall branches are active, dispatch the action
-		## If failed, buffer the input
+		# If the Air or Wall branches are active, dispatch the action
+		# If failed, buffer the input
 		if air_branch.is_active():
 			if dispatch(&"jump"):
 				pass
@@ -131,20 +134,15 @@ func move_character_x(delta: float, state_mod: float):
 func on_platform_hit(platform: Platform):
 	soul.ray_down.add_exception(platform)
 	
-	## move the platform
+	# Move the platform
 	platform.move_platform()
 	
 	await platform.target_reached
-	print("target")
 	
 	while platform.current_state != platform.State.HOME:
-		print("loop")
 		await platform.target_reached
 	
-	print("done")
 	soul.ray_down.remove_exception(platform)
-	
-	
 
 
 func calc_jump_var():

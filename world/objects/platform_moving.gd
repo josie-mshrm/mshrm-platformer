@@ -22,6 +22,7 @@ var current_state : State
 enum State {HOME, TARGET, MOVING}
 
 @onready var collision: CollisionPolygon2D = $Collision
+@onready var area_2d: Area2D = $Area2D
 
 
 func _ready() -> void:
@@ -29,6 +30,8 @@ func _ready() -> void:
 	
 	return_time = time * 2
 	animation_time = time + (2 * delay_time) + return_time
+	
+	area_2d.body_entered.connect(on_body_entered)
 	
 	current_state = State.HOME
 
@@ -60,3 +63,7 @@ func move_platform():
 
 func set_state(state: State):
 	current_state = state
+
+func on_body_entered(body):
+	if body is Player:
+		print("player entered")

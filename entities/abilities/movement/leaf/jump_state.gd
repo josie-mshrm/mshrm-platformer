@@ -10,7 +10,7 @@ func _enter() -> void:
 	jump()
 
 func _exit() -> void:
-	host.gravity.y = host.fall_gravity
+	host.gravity = host.project_gravity * host.gravity_mod
 
 func _update(delta: float) -> void:
 	host.move_character_x(delta, x_mod)
