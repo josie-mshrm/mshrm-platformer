@@ -124,4 +124,5 @@ dash={
 
 2d/run_on_separate_thread=true
 2d/physics_engine="Rapier2D"
+2d/default_gravity=8192.0
 common/physics_interpolation=true

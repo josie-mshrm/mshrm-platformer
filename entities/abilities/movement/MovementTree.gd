@@ -18,7 +18,7 @@ extends MoveBranch
 
 var gravity : Vector2
 var project_gravity
-var gravity_mod : float = 1.3
+var gravity_mod : float = 1.0
 var max_velocity : int
 var accel : float
 var jump_counter: int = 0
