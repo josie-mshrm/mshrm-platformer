@@ -2,8 +2,8 @@ extends Controller
 class_name PlayerController
 
 
-@export var player_node : Player
-@export var input_controller: InputController
+var player_node : Player
+var input_controller: InputController
 #const InputType = InputController.InputType
 
 var ctrl_event : InputEvent
@@ -12,6 +12,8 @@ var action_dict : Dictionary
 var input_event_list : Array[InputEvent]
 
 func _ready():
+	input_controller = $"/root/Input_Controller"
+	player_node = $".."
 	input_controller.input_detected.connect(_on_input_detected)
 	action_dict = player_node.action_list.ActionDict
 

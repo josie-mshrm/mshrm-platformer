@@ -24,6 +24,7 @@ enum State {HOME, TARGET, MOVING}
 @onready var collision: CollisionPolygon2D = $Collision
 @onready var area_2d: Area2D = $Area2D
 @onready var area_collision: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var parent : Node2D = $".."
 
 
 func _ready() -> void:
@@ -34,9 +35,6 @@ func _ready() -> void:
 	
 	area_2d.body_entered.connect(on_body_entered)
 	area_2d.body_exited.connect(on_body_exited)
-	area_2d.gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * (2 ** 14)
-	
-	area_collision.disabled = true
 	
 	current_state = State.HOME
 
@@ -66,15 +64,16 @@ func move_platform():
 	tween.tween_callback(set_state.bind(State.HOME))
 	tween.tween_callback(target_reached.emit)
 
+
 func set_state(state: State):
 	current_state = state
 
-func on_body_entered(soul : Player):
-	soul_gravity_set(soul)
-	soul.reparent(self, true)
 
-func on_body_exited(soul: Player):
-	soul.movement_tree.gravity_mod = 1.0
+func on_body_entered(body: Node2D):
+	if body is Player:
+		body.movement_tree.gravity_mod = 4.0
 
-func soul_gravity_set(soul: Player):
-	soul.movement_tree.gravity_mod = 8.0
+
+func on_body_exited(body: Node2D):
+	if body is Player:
+		body.movement_tree.gravity_mod = 1.0

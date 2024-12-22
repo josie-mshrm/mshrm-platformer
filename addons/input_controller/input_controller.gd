@@ -59,7 +59,7 @@ const ActionState = preload("res://addons/input_controller/action_state.gd")
 ## a child node, or a sibling node that appears below it in the scene tree.
 @export_group("Event Propagation")
 
-@export var set_input_as_handled: bool = true
+@export var set_input_as_handled: bool = false
 
 ## Map of input handler method names to their respective settings (defined above).
 var settings: Dictionary = {

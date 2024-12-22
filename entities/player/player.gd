@@ -12,7 +12,6 @@ var valid_actions : Dictionary
 @onready var label: Label = $Label
 
 
-
 func _ready() -> void:
 	action_list.set_action_dict()
 	
@@ -21,6 +20,7 @@ func _ready() -> void:
 	movement_tree.set_active(true)
 	
 	control_node = $PlayerController
+	
 	init_control_node()
 
 
