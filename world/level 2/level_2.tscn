@@ -40,6 +40,15 @@ set_input_as_handled = false
 [node name="PlatMoving" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
 position = Vector2(-10058, -5280)
 target = NodePath("Marker2D")
+time = 0.35
 
 [node name="Marker2D" type="Marker2D" parent="PlatMoving"]
 position = Vector2(1000, -1000)
+
+[node name="PlatMoving2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_lbokx")]
+position = Vector2(-8492, -5280)
+target = NodePath("Marker2D")
+time = 0.35
+
+[node name="Marker2D" type="Marker2D" parent="PlatMoving2"]
+position = Vector2(0, -1000)

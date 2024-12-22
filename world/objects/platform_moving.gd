@@ -32,7 +32,8 @@ func _ready() -> void:
 	animation_time = time + (2 * delay_time) + return_time
 	
 	area_2d.body_entered.connect(on_body_entered)
-	area_2d.gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * (2 ** 10)
+	#area_2d.gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * (2 ** 12)
+	print(area_2d.gravity)
 	
 	current_state = State.HOME
 
