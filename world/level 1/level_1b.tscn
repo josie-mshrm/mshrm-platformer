@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://bwt40b3p1k7rv"]
 
-[ext_resource type="Script" path="res://world/level 2/level_2.gd" id="1_jdy5o"]
+[ext_resource type="Script" path="res://world/level 1/level_1b.gd" id="1_jdy5o"]
 [ext_resource type="TileSet" uid="uid://bh4o88f10nirm" path="res://world/resources/tile set basic.tres" id="2_ppvub"]
 [ext_resource type="Script" path="res://addons/input_controller/input_controller.gd" id="2_wbukj"]
 [ext_resource type="PackedScene" uid="uid://e3ywnyjbc60h" path="res://world/util/level_reset.tscn" id="3_n227d"]

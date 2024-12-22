@@ -23,6 +23,7 @@ enum State {HOME, TARGET, MOVING}
 
 @onready var collision: CollisionPolygon2D = $Collision
 @onready var area_2d: Area2D = $Area2D
+@onready var area_collision: CollisionShape2D = $Area2D/CollisionShape2D
 
 
 func _ready() -> void:
@@ -32,8 +33,10 @@ func _ready() -> void:
 	animation_time = time + (2 * delay_time) + return_time
 	
 	area_2d.body_entered.connect(on_body_entered)
-	#area_2d.gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * (2 ** 12)
-	print(area_2d.gravity)
+	area_2d.body_exited.connect(on_body_exited)
+	area_2d.gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * (2 ** 14)
+	
+	area_collision.disabled = true
 	
 	current_state = State.HOME
 
@@ -43,6 +46,7 @@ func move_platform():
 	tween.set_process_mode(process)
 	tween.set_ease(ease)
 	tween.set_trans(trans)
+	tween.tween_callback(toggle_colission.bind(area_collision)) # Enable shape
 	
 	
 	## Move the platform to the target
@@ -51,6 +55,7 @@ func move_platform():
 
 	## Wait at the target
 	tween.tween_callback(set_state.bind(State.TARGET))
+	tween.tween_callback(toggle_colission.bind(area_collision)) # Disable shape
 	tween.tween_callback(target_reached.emit)
 	tween.tween_interval(delay_time)
 	
@@ -66,6 +71,14 @@ func move_platform():
 func set_state(state: State):
 	current_state = state
 
-func on_body_entered(body):
-	if body is Player:
-		print("player entered")
+func on_body_entered(soul : Player):
+	soul.movement_tree.gravity_mod = 5.0
+
+func on_body_exited(soul: Player):
+	soul.movement_tree.gravity_mod = 1.0
+
+func toggle_colission(shape : CollisionShape2D):
+	if shape.disabled == true:
+		shape.disabled = false
+	else:
+		shape.disabled = true

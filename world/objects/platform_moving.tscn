@@ -1,18 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxnhpbsdvfmtn"]
+[gd_scene load_steps=6 format=3 uid="uid://cxnhpbsdvfmtn"]
 
 [ext_resource type="Script" path="res://world/objects/platform_moving.gd" id="1_1rnaj"]
 [ext_resource type="Texture2D" uid="uid://cws4tgl38ort3" path="res://world/resources/tilesets/tileset trial v1.1.png" id="2_mki3t"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qgp73"]
+absorbent = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wpokh"]
 atlas = ExtResource("2_mki3t")
 region = Rect2(960, 371, 1025, 205)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xp57a"]
-size = Vector2(900, 200)
+size = Vector2(900, 100)
 
 [node name="PlatMoving" type="AnimatableBody2D" groups=["platforms"]]
 collision_layer = 2
 collision_mask = 84
+physics_material_override = SubResource("PhysicsMaterial_qgp73")
 script = ExtResource("1_1rnaj")
 ease = 1
 trans = 1
@@ -25,9 +29,10 @@ polygon = PackedVector2Array(1, -100, -491, -100, -508, -89, -511, -81, -511, -5
 texture = SubResource("AtlasTexture_wpokh")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, -150)
+position = Vector2(0, -100)
 collision_layer = 2
 collision_mask = 80
+monitorable = false
 priority = 1
 gravity_space_override = 2
 linear_damp_space_override = 2

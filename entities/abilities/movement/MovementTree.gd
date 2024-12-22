@@ -50,7 +50,7 @@ func _ready() -> void:
 	soul.platform_hit.connect(on_platform_hit)
 	
 	project_gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * ProjectSettings.get_setting("physics/2d/default_gravity_vector")
-	gravity = project_gravity * gravity_mod
+	gravity = project_gravity
 	
 	calc_jump_var()
 	max_velocity = (2 ** 11) * soul.speed
