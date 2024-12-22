@@ -3,7 +3,6 @@ extends CharacterBody2D
 
 signal platform_hit(platform: Platform)
 
-@export var control_node: Controller
 @export var action_list: ActionList
 
 @export var health_mod: HealthModule
@@ -14,11 +13,12 @@ signal platform_hit(platform: Platform)
 
 var input_direction : Vector2 = Vector2.ZERO
 
+var control_node: Controller
 
-## Connect to the controller's "send_action" signal
-func _enter_tree() -> void:
-	control_node.ctrl_send_action.connect(on_recieve_action)
-	control_node.ctrl_send_movement.connect(on_recieve_movement)
+
+
+func _ready() -> void:
+	pass
 
 
 ## Send the action from the controller to the appropriate node
@@ -39,3 +39,8 @@ func get_valid_actions() -> Array:
 		valid_actions_list.append_array(value)
 	
 	return valid_actions_list
+
+## Connect to the controller's "send_action" signal
+func init_control_node():
+	control_node.ctrl_send_action.connect(on_recieve_action)
+	control_node.ctrl_send_movement.connect(on_recieve_movement)

@@ -46,7 +46,6 @@ func move_platform():
 	tween.set_process_mode(process)
 	tween.set_ease(ease)
 	tween.set_trans(trans)
-	tween.tween_callback(toggle_colission.bind(area_collision)) # Enable shape
 	
 	
 	## Move the platform to the target
@@ -55,7 +54,6 @@ func move_platform():
 
 	## Wait at the target
 	tween.tween_callback(set_state.bind(State.TARGET))
-	tween.tween_callback(toggle_colission.bind(area_collision)) # Disable shape
 	tween.tween_callback(target_reached.emit)
 	tween.tween_interval(delay_time)
 	
@@ -72,13 +70,11 @@ func set_state(state: State):
 	current_state = state
 
 func on_body_entered(soul : Player):
-	soul.movement_tree.gravity_mod = 5.0
+	soul_gravity_set(soul)
+	soul.reparent(self, true)
 
 func on_body_exited(soul: Player):
 	soul.movement_tree.gravity_mod = 1.0
 
-func toggle_colission(shape : CollisionShape2D):
-	if shape.disabled == true:
-		shape.disabled = false
-	else:
-		shape.disabled = true
+func soul_gravity_set(soul: Player):
+	soul.movement_tree.gravity_mod = 8.0

@@ -143,6 +143,7 @@ func on_platform_hit(platform: Platform):
 		await platform.target_reached
 	
 	soul.ray_down.remove_exception(platform)
+	gravity_mod = 1.0
 
 
 func calc_jump_var():

@@ -19,6 +19,9 @@ func _ready() -> void:
 	## State Machine Setup
 	movement_tree.initialize(self)
 	movement_tree.set_active(true)
+	
+	control_node = $PlayerController
+	init_control_node()
 
 
 func _process(_delta: float) -> void:

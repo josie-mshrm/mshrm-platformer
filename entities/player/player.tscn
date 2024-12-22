@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://5iclcc2smej6"]
+[gd_scene load_steps=9 format=3 uid="uid://5iclcc2smej6"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_oppev"]
 [ext_resource type="Resource" uid="uid://ble1niic6eqcy" path="res://world/resources/player_action_list.tres" id="2_hbaqi"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cs5sh1ihbkv1c" path="res://entities/modules/HealthModule.tscn" id="3_4nbfh"]
 [ext_resource type="Shape2D" uid="uid://cfmlyc2f5ua0j" path="res://entities/player/player_hitbox.tres" id="4_mj6ck"]
 [ext_resource type="PackedScene" uid="uid://cmfi7rml7drpt" path="res://entities/abilities/movement/MovementTree.tscn" id="5_a64yo"]
+[ext_resource type="Script" path="res://addons/input_controller/input_controller.gd" id="7_8yod1"]
+[ext_resource type="PackedScene" uid="uid://c471ex58pncnh" path="res://system/controllers/player_controller.tscn" id="8_mjhd7"]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_mod", "ray_down")]
 collision_layer = 16
@@ -49,3 +51,11 @@ offset_right = 85.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 metadata/_edit_lock_ = true
+
+[node name="InputController" type="Node" parent="."]
+script = ExtResource("7_8yod1")
+set_input_as_handled = false
+
+[node name="PlayerController" parent="." node_paths=PackedStringArray("player_node", "input_controller") instance=ExtResource("8_mjhd7")]
+player_node = NodePath("..")
+input_controller = NodePath("../InputController")
