@@ -2,7 +2,7 @@ class_name Player
 extends Soul
 
 ## Signal for actions that respond to the player's input
-signal player_input_action(action: StringName, event : InputEvent)
+
 
 
 var valid_actions : Dictionary
@@ -37,7 +37,7 @@ func on_recieve_action(control_action : StringName, event : InputEvent):
 		valid_actions = self.action_list.ActionDict
 	
 	if valid_actions.has(control_action): # If the action is allowed by the character body
-		player_input_action.emit(control_action, event)
+		GlobalBus.player_input_action.emit(control_action, event)
 	else:
 		printerr("invalid input")
 		printerr(control_action)

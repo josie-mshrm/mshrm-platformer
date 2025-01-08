@@ -46,7 +46,8 @@ var buffer_active : bool = false
 func _ready() -> void:
 	soul = $".."
 	
-	soul.player_input_action.connect(on_player_input)
+	GlobalBus.player_input_action.connect(on_player_input)
+	
 	soul.platform_hit.connect(on_platform_hit)
 	
 	project_gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * ProjectSettings.get_setting("physics/2d/default_gravity_vector")
@@ -87,7 +88,7 @@ func _update(delta: float) -> void:
 func on_player_input(action: StringName, event : InputEvent):
 	
 	if action == &"jump":
-
+		
 		# If the Air or Wall branches are active, dispatch the action
 		# If failed, buffer the input
 		if air_branch.is_active():
@@ -135,19 +136,20 @@ func on_platform_hit(platform: Platform):
 	soul.ray_down.add_exception(platform)
 	
 	# Move the platform
+	platform.calculate_offset(soul)
 	platform.move_platform()
 	
 	await platform.target_reached
+	if platform.current_state == platform.State.TARGET:
+		platform.launch_body(soul)
+		platform.offset_target = null
 	
 	while platform.current_state != platform.State.HOME:
 		await platform.target_reached
 	
+	
 	soul.ray_down.remove_exception(platform)
 
-func retain_offset():
-	pass
-	# calculate y position above the platform on start
-	
 
 func calc_jump_var():
 	jump_velocity = ((2.0 * jump_height) / jump_peak_time) * -10.0

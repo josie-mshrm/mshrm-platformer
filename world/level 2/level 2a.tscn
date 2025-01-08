@@ -15,7 +15,7 @@ tile_map_data = PackedByteArray("AAD8/wAAAQADAAAAAAD9/wAAAQADAAAAAAD+/wAAAQADAAA
 tile_set = ExtResource("1_4c0eq")
 
 [node name="Player" parent="." instance=ExtResource("4_cafkr")]
-position = Vector2(5637, -10692)
+position = Vector2(3603, -369)
 metadata/_edit_group_ = true
 
 [node name="opening platform" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_xn6e8")]
