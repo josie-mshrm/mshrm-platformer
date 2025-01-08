@@ -18,12 +18,14 @@ config/icon="res://system/icon.svg"
 [autoload]
 
 Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
+Focus="res://system/controllers/focus.gd"
 Input_Controller="*res://addons/input_controller/input_controller.gd"
 
 [display]
 
 window/size/viewport_width=3840
 window/size/viewport_height=2160
+window/size/borderless=true
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/vsync/vsync_mode=0
@@ -123,6 +125,7 @@ dash={
 [physics]
 
 2d/run_on_separate_thread=true
+common/physics_ticks_per_second=120
 common/physics_jitter_fix=0.0
 2d/physics_engine="Rapier2D"
 2d/default_gravity=8192.0

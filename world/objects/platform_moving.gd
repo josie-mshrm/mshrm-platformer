@@ -70,10 +70,8 @@ func set_state(state: State):
 
 
 func on_body_entered(body: Node2D):
-	if body is Player:
-		body.movement_tree.gravity_mod = 4.0
+	pass
 
 
 func on_body_exited(body: Node2D):
-	if body is Player:
-		body.movement_tree.gravity_mod = 1.0
+	pass

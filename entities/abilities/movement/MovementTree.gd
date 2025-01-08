@@ -143,8 +143,11 @@ func on_platform_hit(platform: Platform):
 		await platform.target_reached
 	
 	soul.ray_down.remove_exception(platform)
-	gravity_mod = 1.0
 
+func retain_offset():
+	pass
+	# calculate y position above the platform on start
+	
 
 func calc_jump_var():
 	jump_velocity = ((2.0 * jump_height) / jump_peak_time) * -10.0
