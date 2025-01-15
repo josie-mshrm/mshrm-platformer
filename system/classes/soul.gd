@@ -9,13 +9,17 @@ signal platform_hit(platform: Platform)
 @export var max_health: int
 @export_range(0, 4) var speed: float
 
-@export var ray_down: RayCast2D
+
 
 var input_direction : Vector2 = Vector2.ZERO
 
 var control_node: Controller
 
-
+@onready var soul_raycast_dict := {
+	&"RayDown" : $RayDown,
+	&"RayLeft" : $RayLeft,
+	&"RayRight" : $RayRight,
+}
 
 func _ready() -> void:
 	pass

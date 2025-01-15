@@ -12,7 +12,7 @@ func _update(delta: float) -> void:
 	
 	limit_wall_slide_speed()
 	
-	if not host.wall_branch.check_wall_direction():
+	if not host.wall_branch.check_input_for_wall_direction():
 		dispatch(&"air")
 
 
@@ -25,7 +25,7 @@ func wall_check_buffer():
 	if host.buffer_active:
 		if host.check_buffer(&"jump"):
 			if soul.is_on_wall_only():
-				host.wall_branch.get_wall_direction()
+				host.wall_branch.get_wall_ray_direction()
 				dispatch(&"wall kick")
 			elif host.can_jump():
 				host.is_jump = true

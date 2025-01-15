@@ -30,22 +30,28 @@ func _exit() -> void:
 
 func _update(_delta: float) -> void:
 	
-	get_wall_direction()
+	get_wall_ray_direction()
 	
 	if soul.is_on_floor():
 		dispatch(&"ground")
 
-func get_wall_direction():
-	last_wall_direction = wall_direction
-	if soul.is_on_wall():
-		wall_direction.x = sign(soul.get_wall_normal().x) * -1
-	else:
-		wall_direction.x = 0
-	
 
-func check_wall_direction(_cargo = null) -> bool:
+func check_input_for_wall_direction() -> bool:
 	if not soul.is_on_wall():
 		return false
 	if sign(soul.input_direction.x) != sign(wall_direction.x):
 		return false
 	return true
+
+
+func get_wall_ray_direction():
+	if wall_direction.x != 0:
+		last_wall_direction = wall_direction
+	# The raycast can only detect in layer 2, which is always ground/walls/ceiling
+	# Therefore if the raycast is colliding, that is enough of a check
+	if host.ray_left.is_colliding():
+		wall_direction.x = -1
+	elif host.ray_right.is_colliding():
+		wall_direction.x = 1
+	else:
+		wall_direction.x = 0

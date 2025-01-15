@@ -35,7 +35,9 @@ var input_buffer : Dictionary = {
 	&"jump" : false, 
 	}
 var buffer_active : bool = false
-
+var ray_down : RayCast2D
+var ray_left : RayCast2D
+var ray_right : RayCast2D
 
 @onready var ground_branch: GroundBranch = $GroundBranch
 @onready var air_branch: AirBranch = $AirBranch
@@ -53,10 +55,12 @@ func _ready() -> void:
 	project_gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * ProjectSettings.get_setting("physics/2d/default_gravity_vector")
 	gravity = project_gravity
 	
+	# Node and variable initialization
 	calc_jump_var()
 	max_velocity = (2 ** 11) * soul.speed
 	accel = max_velocity / accel_time
 	
+	# Passing reference for self and soul to movement system
 	for child in get_children():
 		if child is MoveBranch:
 			child.soul = soul
@@ -64,6 +68,7 @@ func _ready() -> void:
 
 
 func _setup() -> void:
+	get_raycast_nodes()
 	
 	add_transition(ANYSTATE, ground_branch, &"ground")
 	add_transition(ANYSTATE, air_branch, &"air")
@@ -76,8 +81,8 @@ func _update(delta: float) -> void:
 	soul.velocity += gravity * delta * gravity_mod
 	
 	## Moving platform detection
-	if soul.ray_down.is_colliding():
-		var collider = soul.ray_down.get_collider()
+	if ray_down.is_colliding():
+		var collider = ray_down.get_collider()
 		if collider is Platform:
 			soul.platform_hit.emit(collider)
 	
@@ -133,7 +138,7 @@ func move_character_x(delta: float, state_mod: float):
 
 
 func on_platform_hit(platform: Platform):
-	soul.ray_down.add_exception(platform)
+	ray_down.add_exception(platform)
 	
 	# Move the platform
 	platform.calculate_offset(soul)
@@ -148,7 +153,7 @@ func on_platform_hit(platform: Platform):
 		await platform.target_reached
 	
 	
-	soul.ray_down.remove_exception(platform)
+	ray_down.remove_exception(platform)
 
 
 func calc_jump_var():
@@ -192,3 +197,9 @@ func check_buffer(action : StringName) -> bool:
 				input_buffer.erase(action)
 				return true
 	return false
+
+
+func get_raycast_nodes():
+	ray_down = soul.soul_raycast_dict.get(&"RayDown")
+	ray_left = soul.soul_raycast_dict.get(&"RayLeft")
+	ray_right = soul.soul_raycast_dict.get(&"RayRight")

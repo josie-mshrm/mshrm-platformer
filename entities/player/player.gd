@@ -1,9 +1,6 @@
 class_name Player
 extends Soul
 
-## Signal for actions that respond to the player's input
-
-
 
 var valid_actions : Dictionary
 
