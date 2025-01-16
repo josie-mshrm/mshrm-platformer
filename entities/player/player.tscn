@@ -44,11 +44,11 @@ metadata/_edit_lock_ = true
 
 [node name="RayLeft" type="RayCast2D" parent="."]
 position = Vector2(-16, -68)
-target_position = Vector2(-10, 0)
+target_position = Vector2(-4, 0)
 
 [node name="RayRight" type="RayCast2D" parent="."]
 position = Vector2(20, -68)
-target_position = Vector2(10, 0)
+target_position = Vector2(4, 0)
 
 [node name="Label" type="Label" parent="."]
 layout_direction = 1

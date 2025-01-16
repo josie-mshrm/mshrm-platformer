@@ -12,7 +12,7 @@ signal target_reached()
 @export var time : float = 0.5
 ## the time the platform waits before returning to init position
 @export var delay_time : float = 1.0
-@export var ease : Tween.EaseType
+@export var ease_type : Tween.EaseType
 @export var trans : Tween.TransitionType
 @export var process : Tween.TweenProcessMode
 
@@ -46,7 +46,7 @@ func _ready() -> void:
 	current_state = State.HOME
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if offset_target != null: # if there is a target
 		vertical_offset(offset_target, offset_value.y) # do the vertical offset
 
@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 func move_platform():
 	var tween : Tween = create_tween()
 	tween.set_process_mode(process)
-	tween.set_ease(ease)
+	tween.set_ease(ease_type)
 	tween.set_trans(trans)
 	
 	
@@ -81,16 +81,16 @@ func set_state(state: State):
 	current_state = state
 
 
-func on_body_entered(body: Node2D):
+func on_body_entered(_body: Node2D):
 	pass
 	# if the body is the player, calculate the offset and apply
 
-func on_body_exited(body: Node2D):
+func on_body_exited(_body: Node2D):
 	pass
 	# if the body is the player, disable offset
 
 
-func on_player_input(action: StringName, event : InputEvent):
+func on_player_input(action: StringName, _event : InputEvent):
 	if action == &"jump": # If the player inputs a jump
 		if offset_target != null:
 			if current_state == State.MOVING: # and the platform is moving

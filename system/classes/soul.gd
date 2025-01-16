@@ -10,7 +10,6 @@ signal platform_hit(platform: Platform)
 @export_range(0, 4) var speed: float
 
 
-
 var input_direction : Vector2 = Vector2.ZERO
 
 var control_node: Controller
