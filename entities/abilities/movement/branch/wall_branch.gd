@@ -2,7 +2,6 @@ class_name WallBranch
 extends MoveBranch
 
 var wall_direction : Vector2
-var last_wall_direction : Vector2
 
 @onready var wall_state: WallState = $WallState
 @onready var wall_jump_state: WallJumpState = $"Wall JumpState"
@@ -45,8 +44,6 @@ func check_input_for_wall_direction() -> bool:
 
 
 func get_wall_ray_direction():
-	if wall_direction.x != 0:
-		last_wall_direction = wall_direction
 	# The raycast can only detect in layer 2, which is always ground/walls/ceiling
 	# Therefore if the raycast is colliding, that is enough of a check
 	if host.ray_left.is_colliding():

@@ -26,7 +26,7 @@ func wall_jump():
 	elif host.wall_branch.wall_direction.x == 1:
 		soul.velocity = kick_vector_right
 	else:
-		print("fail")
+		printerr("no wall direction")
 	await get_tree().create_timer(host.jump_peak_time, true, true, false).timeout
 	dispatch(&"air")
 
